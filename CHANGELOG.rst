@@ -6,12 +6,12 @@ All notable changes to this project will be documented in this file.
 The format is based on `Keep a Changelog <https://keepachangelog.com/en/1.0.0/>`_,
 and this project adheres to `Semantic Versioning <https://semver.org/spec/v2.0.0.html>`_.
 
-.. note::
+Note
+----
 
-    This is a template changelog to be inherited by projects using this skeleton
-    module. The changelog for the skeleton module is the list of `closed pull requests
-    <https://github.com/dls-controls/dls-python3-skeleton/pulls?q=is%3Apr+is%3Aclosed>`_
-
+This is a template changelog to be inherited by projects using this skeleton
+module. The changelog for the skeleton module is the list of `closed pull requests
+<https://github.com/dls-controls/dls-python3-skeleton/pulls?q=is%3Apr+is%3Aclosed>`_
 
 `Unreleased <../../compare/0.2...HEAD>`_
 ----------------------------------------
