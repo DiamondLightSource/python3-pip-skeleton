@@ -3,8 +3,10 @@ dls-python3-skeleton
 
 |code_ci| |docs_ci| |coverage| |pypi_version| |license|
 
-This skeleton module is a generic Python project structure which provides a
-means to keep tools and techniques in sync between multiple Python projects.
+This skeleton module (inspired by `jaraco/skeleton
+<https://blog.jaraco.com/skeleton/>`_) is a generic Python project structure
+which provides a means to keep tools and techniques in sync between multiple
+Python projects.
 
 ============== ==============================================================
 PyPI           ``pip install dls_python3_skeleton``
@@ -26,11 +28,13 @@ The ``skeleton`` branch of this module contains the source code that can be
 merged into new or existing projects, and pulled from to keep them up to date.
 
 The ``master`` branch contains the
-docs and a command line tool to ease the adoption of this skeleton into new
+docs and a command line tool to ease the adoption of this skeleton into new::
+
+    dls-python3-skeleton new /path/to/be/created
+
 and existing projects::
 
-    $ python -m dls_python3_skeleton new /path/to/be/created
-    $ python -m dls_python3_skeleton existing /path/to/existing/repo
+    dls-python3-skeleton existing /path/to/existing/repo
 
 .. |code_ci| image:: https://github.com/dls-controls/dls-python3-skeleton/workflows/Code%20CI/badge.svg?branch=master
     :target: https://github.com/dls-controls/dls-python3-skeleton/actions?query=workflow%3A%22Code+CI%22

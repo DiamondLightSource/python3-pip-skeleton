@@ -5,6 +5,8 @@ It can be deleted when all the contained tests pass
 import configparser
 from pathlib import Path
 
+import pytest
+
 ROOT = Path(__file__).parent.parent
 
 
@@ -63,15 +65,18 @@ def test_removed_CHANGELOG_note():
     assert_not_contains_text(
         "CHANGELOG.rst",
         "This is a template changelog",
-        "To remove the note at the top",
+        "to remove the note at the top",
     )
 
 
+# This test only makes sense once you have made a release and
+# have something to put in the CHANGELOG
+@pytest.mark.xfail(reason="No releases made yet")
 def test_changed_CHANGELOG():
     assert_not_contains_text(
         "CHANGELOG.rst",
         "When you make a change, put it here",
-        "To summarize changes to your module as you make them",
+        "to summarize changes to your module as you make them",
     )
 
 
