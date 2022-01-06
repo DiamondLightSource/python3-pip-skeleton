@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 
-from dls_python3_skeleton import __version__
+from dls_python3_skeleton import __main__, __version__
 
 
 def check_output(*args, cwd=None) -> str:
@@ -56,3 +56,32 @@ def test_new_module(tmp_path: Path):
     assert "Please change ./docs/reference/api.rst" in out
     assert "Please delete ./docs/how-to/accomplish-a-task.rst" in out
     assert "Please delete ./docs/explanations/why-is-something-so.rst" in out
+
+
+def test_existing_module(tmp_path: Path):
+    module = tmp_path / "scanspec"
+    __main__.git(
+        "clone",
+        "--depth",
+        "1",
+        "--branch",
+        "0.5.3",
+        "https://github.com/dls-controls/scanspec",
+        str(module),
+    )
+    output = check_output(
+        sys.executable,
+        "-m",
+        "dls_python3_skeleton",
+        "existing",
+        str(module),
+    )
+    assert output.endswith(
+        """
+Automatic merge failed; fix conflicts and then commit the result.
+
+Please fix the conflicts above, then you can run:
+    git branch -d skeleton-merge-branch
+Instructions on how to develop this module are in CONTRIBUTING.rst
+"""
+    )
