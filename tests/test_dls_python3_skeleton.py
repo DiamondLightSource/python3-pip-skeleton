@@ -49,7 +49,7 @@ def test_new_module(tmp_path: Path):
         check_output("pipenv", "run", "tests", cwd=module)
     out = ctx.value.args[0]
     print(out)
-    assert "8 failed" in out
+    assert "7 failed, 5 passed, 1 xfailed" in out
     assert "Please change description in ./setup.cfg" in out
     assert "Please change ./README.rst" in out
     assert "Please change ./CHANGELOG.rst" in out
