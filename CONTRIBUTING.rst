@@ -1,27 +1,28 @@
 Contributing
 ============
 
-Contributions and issues are most welcome! All issues and pull requests are
-handled through Github_. Also, please check for any existing issues before
-filing a new one. If you have a great idea but it involves big changes, please
-file a ticket before making a pull request! We want to make sure you don't spend
-your time coding something that might not fit the scope of the project.
+Contributing to the skeleton repository is different to other repos. There
+are two sorts of contributions:
 
-.. _Github: https://github.com/dls-controls/dls-python3-skeleton/issues
+- Changes to the skeleton structure should be made on a branch, then a
+  PR_ raised back to the ``skeleton`` branch.
+- Changes to the docs or commandline tool should be made directly on master
+
+.. _PR: https://github.com/dls-controls/dls-python3-skeleton/pulls
 
 Running the tests
 -----------------
 
-To get the source source code and run the unit tests, run::
+Both the ``skeleton`` and ``master`` branch have different tests, but
+the process to run them is the same::
 
     $ git clone git://github.com/dls-controls/dls-python3-skeleton.git
     $ cd dls-python3-skeleton
     $ pipenv install --dev
     $ pipenv run tests
 
-While 100% code coverage does not make a library bug-free, it significantly
-reduces the number of easily caught bugs! Please make sure coverage remains the
-same or is improved by a pull request!
+Please note that Pipfile.lock is only committed on ``master``, not on
+``skeleton``
 
 Code Styling
 ------------
@@ -74,27 +75,13 @@ You can build the docs from the project directory by running::
 Release Process
 ---------------
 
-To make a new release, please follow this checklist:
+Releases are only made when the commandline tool needs to be released.
+When this happens:
 
 - Choose a new PEP440 compliant release number
-- Add a release note in CHANGELOG.rst
 - Git tag the version
 - Push to github and the actions will make a release on pypi
 - Push to internal gitlab and do a dls-release.py of the tag
 
-Updating the tools
-------------------
-
-This module is merged with the dls-python3-skeleton_. This is a generic
-Python project structure which provides a means to keep tools and
-techniques in sync between multiple Python projects. To update to the
-latest version of the skeleton, run::
-
-    $ git pull https://github.com/dls-controls/dls-python3-skeleton
-
-Any merge conflicts will indicate an area where something has changed that
-conflicts with the setup of the current module. Check the `closed pull requests
-<https://github.com/dls-controls/dls-python3-skeleton/pulls?q=is%3Apr+is%3Aclosed>`_
-of the skeleton module for more details.
-
-.. _dls-python3-skeleton: https://dls-controls.github.io/dls-python3-skeleton
+Apart from this, ``master`` and ``skeleton`` should always be deployable,
+and are considered the latest release.
