@@ -1,10 +1,11 @@
 import subprocess
 import sys
+from configparser import ConfigParser
 from pathlib import Path
 
 import pytest
 
-from dls_python3_skeleton import __main__, __version__
+from dls_python3_skeleton import __version__
 
 
 def check_output(*args, cwd=None) -> str:
@@ -29,9 +30,19 @@ def test_new_module(tmp_path: Path):
         "dls_python3_skeleton",
         "new",
         "--package=my_module",
+        "--full-name=Firstname Lastname",
+        "--email=me@myaddress.com",
         str(module),
     )
-    assert output == ""
+    assert (
+        output.strip()
+        == "Instructions on how to develop this module are in CONTRIBUTING.rst"
+    )
+    conf = ConfigParser()
+    conf.read(module / "setup.cfg")
+    assert conf["metadata"]["author"] == "Firstname Lastname"
+    assert conf["metadata"]["author_email"] == "me@myaddress.com"
+    assert (module / "src" / "my_module").is_dir()
     check_output("pipenv", "install", "--dev", cwd=module)
     check_output("pipenv", "run", "docs", cwd=module)
     with pytest.raises(ValueError) as ctx:

@@ -70,6 +70,11 @@ jobs:
       PY_IGNORE_IMPORTMISMATCH: "1"
 
     steps:
+      - name: Setup git
+        run: |
+          git config --global user.email "you@example.com"
+          git config --global user.name "Your Name"
+
       - name: Setup repo and test
         uses: dls-controls/pipenv-run-action@v1
         with:
