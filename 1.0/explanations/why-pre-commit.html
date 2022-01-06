@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Why use pre-commit &mdash; dls-python3-skeleton 1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/dls-favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Contributing" href="../reference/contributing.html" />
+    <link rel="prev" title="Why use a source directory" href="why-src.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: rgb(7, 43, 93)" >
+            <a href="../index.html" class="icon icon-home"> dls-python3-skeleton
+            <img src="../_static/dls-logo.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/new.html">Creating a new repo from the skeleton</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-to Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../how-to/existing.html">How to adopt the skeleton in an existing repo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-to/update.html">How to update to the latest skeleton structure</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Explanations</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="why-use-skeleton.html">Why use a skeleton structure?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="why-src.html">Why use a source directory</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Why use pre-commit</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/dls-controls/dls-python3-skeleton/blob/master/CHANGELOG.rst">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: rgb(7, 43, 93)" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">dls-python3-skeleton</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Why use pre-commit</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/explanations/why-pre-commit.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="why-use-pre-commit">
+<h1>Why use pre-commit<a class="headerlink" href="#why-use-pre-commit" title="Permalink to this headline"></a></h1>
+<p>There are a number of things that CI needs to run:</p>
+<ul class="simple">
+<li><p>pytest</p></li>
+<li><p>black</p></li>
+<li><p>mypy</p></li>
+<li><p>flake8</p></li>
+<li><p>isort</p></li>
+</ul>
+<p>The initial approach this module took was to integrate everything
+under pytest that had a plugin, and isort under flake8:</p>
+<ul class="simple">
+<li><p>pytest</p>
+<ul>
+<li><p>pytest-black</p></li>
+<li><p>pytest-mypy</p></li>
+<li><p>pytest-flake8</p>
+<ul>
+<li><p>flake8-isort</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>This had the advantage that a <code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">run</span> <span class="pre">tests</span></code> run in CI would catch and
+report all test failures, but made each run take longer than it needed to. Also,
+flake8 states that it <a class="reference external" href="https://flake8.pycqa.org/en/latest/user/python-api.html">does not have a public, stable, Python API</a> so did not
+recommend the approach taken by pytest-flake8.</p>
+<p>To address this, the tree was rearranged:</p>
+<ul class="simple">
+<li><p>pytest</p></li>
+<li><p>black</p></li>
+<li><p>mypy</p></li>
+<li><p>flake8</p>
+<ul>
+<li><p>flake8-isort</p></li>
+</ul>
+</li>
+</ul>
+<p>If using VSCode, this will still run black, flake8 and mypy on file save, but
+for those using other editors and for CI another solution was needed. Enter
+<a class="reference external" href="https://pre-commit.com/">pre-commit</a>. This allows hooks to be run at <code class="docutils literal notranslate"><span class="pre">git</span>
+<span class="pre">commit</span></code> time on just the files that have changed, as well as on all tracked
+files by CI. The graph now looks like:</p>
+<ul class="simple">
+<li><p>pytest</p></li>
+<li><p>pre-commit</p>
+<ul>
+<li><p>black</p></li>
+<li><p>mypy</p></li>
+<li><p>flake8</p></li>
+<li><p>flake8-isort</p></li>
+</ul>
+</li>
+</ul>
+<p>Now the workflow looks like this:</p>
+<ul class="simple">
+<li><p>Save file, VSCode runs black, flake8 and mypy on it</p></li>
+<li><p>Run pytest until tests pass</p></li>
+<li><p>Commit files and pre-commit runs black, flake8 and mypy on them</p></li>
+<li><p>Push to remote and CI runs black, flake8, mypy once on all files, then pytest
+multiple times in a test matrix</p></li>
+</ul>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="why-src.html" class="btn btn-neutral float-left" title="Why use a source directory" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../reference/contributing.html" class="btn btn-neutral float-right" title="Contributing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+   
+  <div id="other-versions-div" class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions" style="visibility: hidden">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Other Versions</span>
+      1.0
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl id="other-versions-dl"/>
+    </div>
+  </div>
+  <script>
+    function addVersion(name) {
+      var dd = document.createElement("dd");
+      var a = document.createElement("a");
+      a.href = "../../" + name;
+      a.innerText = name;
+      dd.appendChild(a);
+      document.getElementById('other-versions-dl').appendChild(dd);
+    }
+    // Get versions.txt and add a version for each line
+    fetch("../../versions.txt").then(response => {
+      if (response.ok) {
+        document.getElementById('other-versions-div').style.visibility = "visible";
+        return response.text().then(text => text.split(/\r?\n/).forEach(addVersion))
+      }
+    });
+  </script>
+
+
+</body>
+</html>
