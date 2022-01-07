@@ -77,16 +77,20 @@ You can then view the docs output with a web browse::
 
     firefox build/html/index.html
 
-Pushing to Github
+Pushing to GitHub
 -----------------
 
-To push the resulting repo to Github, run the following::
+To push the resulting repo to GitHub, first create an empty repo from the GitHub
+website, then run the following::
 
     git remote add $(cat .gitremotes)
     git push -u github master
 
 This will then run the continuous integration (CI) jobs, which run the tests and
 build the docs using the commands above.
+
+Once the docs build has passed, you can use the Settings on the repo page on the
+GitHub website to enable github pages publishing of the ``gh-pages`` branch.
 
 What next?
 ----------

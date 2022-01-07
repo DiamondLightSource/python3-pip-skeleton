@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Creating a new repo from the skeleton &mdash; dls-python3-skeleton 1.0+7.g5a96d1a documentation</title>
+  <title>Creating a new repo from the skeleton &mdash; dls-python3-skeleton 1.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
@@ -34,7 +34,7 @@
             <img src="../_static/dls-logo.svg" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                master
+                1.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -51,7 +51,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#getting-started-with-your-new-repo">Getting started with your new repo</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#running-the-tests">Running the tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#building-the-docs">Building the docs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#pushing-to-github">Pushing to Github</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pushing-to-github">Pushing to GitHub</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#what-next">What next?</a></li>
 </ul>
 </li>
@@ -173,14 +173,17 @@ fail” by adding a decorator to the relevant function. For example:</p>
 </div>
 </section>
 <section id="pushing-to-github">
-<h2>Pushing to Github<a class="headerlink" href="#pushing-to-github" title="Permalink to this headline"></a></h2>
-<p>To push the resulting repo to Github, run the following:</p>
+<h2>Pushing to GitHub<a class="headerlink" href="#pushing-to-github" title="Permalink to this headline"></a></h2>
+<p>To push the resulting repo to GitHub, first create an empty repo from the GitHub
+website, then run the following:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>git remote add $(cat .gitremotes)
 git push -u github master
 </pre></div>
 </div>
 <p>This will then run the continuous integration (CI) jobs, which run the tests and
 build the docs using the commands above.</p>
+<p>Once the docs build has passed, you can use the Settings on the repo page on the
+GitHub website to enable github pages publishing of the <code class="docutils literal notranslate"><span class="pre">gh-pages</span></code> branch.</p>
 </section>
 <section id="what-next">
 <h2>What next?<a class="headerlink" href="#what-next" title="Permalink to this headline"></a></h2>
@@ -220,7 +223,7 @@ the <a class="reference internal" href="../how-to.html"><span class="doc">How-to
   <div id="other-versions-div" class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions" style="visibility: hidden">
     <span class="rst-current-version" data-toggle="rst-current-version">
       <span class="fa fa-book"> Other Versions</span>
-      master
+      1.1
       <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
