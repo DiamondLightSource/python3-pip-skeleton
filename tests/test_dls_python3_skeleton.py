@@ -34,10 +34,10 @@ def test_new_module(tmp_path: Path):
         "--email=me@myaddress.com",
         str(module),
     )
-    assert (
-        output.strip()
-        == "Instructions on how to develop this module are in CONTRIBUTING.rst"
+    assert output.strip().endswith(
+        "Instructions on how to develop this module are in CONTRIBUTING.rst"
     )
+
     conf = ConfigParser()
     conf.read(module / "setup.cfg")
     assert conf["metadata"]["author"] == "Firstname Lastname"
@@ -49,10 +49,9 @@ def test_new_module(tmp_path: Path):
         check_output("pipenv", "run", "tests", cwd=module)
     out = ctx.value.args[0]
     print(out)
-    assert "7 failed, 5 passed, 1 xfailed" in out
+    assert "6 failed, 5 passed" in out
     assert "Please change description in ./setup.cfg" in out
     assert "Please change ./README.rst" in out
-    assert "Please change ./CHANGELOG.rst" in out
     assert "Please change ./docs/reference/api.rst" in out
     assert "Please delete ./docs/how-to/accomplish-a-task.rst" in out
     assert "Please delete ./docs/explanations/why-is-something-so.rst" in out
