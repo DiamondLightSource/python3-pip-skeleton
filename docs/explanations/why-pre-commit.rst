@@ -12,13 +12,21 @@ There are a number of things that CI needs to run:
 The initial approach this module took was to integrate everything
 under pytest that had a plugin, and isort under flake8:
 
-- pytest
+.. digraph:: initial
 
-  - pytest-black
-  - pytest-mypy
-  - pytest-flake8
+    bgcolor=transparent
+    graph [fontname="Lato" fontsize=10 style=filled fillcolor="#8BC4E9"]
+    node [fontname="Lato" fontsize=10 shape=box style=filled fillcolor="#8BC4E9"]
 
-    - flake8-isort
+    subgraph cluster_0 {
+      label = "pytest"
+      "pytest-black"
+      "pytest-mypy"
+      subgraph cluster_1 {
+        label = "pytest-flake8"
+        "flake8-isort"
+      }
+    }
 
 This had the advantage that a ``pipenv run tests`` run in CI would catch and
 report all test failures, but made each run take longer than it needed to. Also,
@@ -28,12 +36,19 @@ recommend the approach taken by pytest-flake8.
 
 To address this, the tree was rearranged:
 
-- pytest
-- black
-- mypy
-- flake8
+.. digraph:: rearranged
 
-  - flake8-isort
+    bgcolor=transparent
+    graph [fontname="Lato" fontsize=10 style=filled fillcolor="#8BC4E9"]
+    node [fontname="Lato" fontsize=10 shape=box style=filled fillcolor="#8BC4E9"]
+
+    pytest
+    black
+    mypy
+    subgraph cluster_1 {
+      label = "flake8"
+      "flake8-isort"
+    }
 
 If using VSCode, this will still run black, flake8 and mypy on file save, but
 for those using other editors and for CI another solution was needed. Enter
@@ -45,13 +60,22 @@ files by CI. All that is needed is a one time install of the git commit hook::
 
 The graph now looks like:
 
-- pytest
-- pre-commit
+.. digraph:: rearranged
 
-  - black
-  - mypy
-  - flake8
-  - flake8-isort
+    bgcolor=transparent
+    graph [fontname="Lato" fontsize=10 style=filled fillcolor="#8BC4E9"]
+    node [fontname="Lato" fontsize=10 shape=box style=filled fillcolor="#8BC4E9"]
+
+    pytest
+    subgraph cluster_0 {
+      label = "pre-commit"
+      black
+      mypy
+      subgraph cluster_1 {
+        label = "flake8"
+        "flake8-isort"
+      }
+    }
 
 Now the workflow looks like this:
 
