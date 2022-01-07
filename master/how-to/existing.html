@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>How to adopt the skeleton in an existing repo &mdash; dls-python3-skeleton 1.0+5.gdfe8591 documentation</title>
+  <title>How to adopt the skeleton in an existing repo &mdash; dls-python3-skeleton 1.0+6.gbae5c35 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
@@ -118,8 +118,8 @@ then you can use the commandline tool to merge the skeleton into your repo:</p>
 </div>
 <section id="example-merge">
 <h2>Example merge<a class="headerlink" href="#example-merge" title="Permalink to this headline"></a></h2>
-<p>As an example, <a class="reference external" href="url">scanspec #33</a> shows the what this adoption looks like.
-The commandline tool was run on the existing repo:</p>
+<p>As an example, <a class="reference external" href="https://github.com/dls-controls/scanspec/pull/46">scanspec #46</a> shows the what this
+adoption looks like. The commandline tool was run on the existing repo:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd /path/to/scanspec
 $ git checkout -b adopt-skeleton
 Switched to a new branch &#39;adopt-skeleton&#39;
@@ -167,7 +167,16 @@ Please fix the conflicts above, then you can run:
 Instructions on how to develop this module are in CONTRIBUTING.rst
 </pre></div>
 </div>
-<p>Each of these merge conflicts was fixed, then the pipenv dependencies updated:</p>
+<p>First of the boilerplate files were removed:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git rm src/scanspec/hello.py docs/images/dls-logo.svg docs/images/dls-favicon.ico docs/how-to/accomplish-a-task.rst docs/explanations/why-is-something-so.rst -f
+rm &#39;docs/explanations/why-is-something-so.rst&#39;
+rm &#39;docs/how-to/accomplish-a-task.rst&#39;
+rm &#39;docs/images/dls-favicon.ico&#39;
+rm &#39;docs/images/dls-logo.svg&#39;
+rm &#39;src/scanspec/hello.py&#39;
+</pre></div>
+</div>
+<p>Then the merge conflicts were fixed, and the pipenv dependencies updated:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pipenv --rm
 $ rm Pipfile.lock
 $ pipenv install --dev
@@ -178,8 +187,12 @@ $ pipenv install --dev
 $ pipenv run docs
 </pre></div>
 </div>
-<p>Finally the results were committed:</p>
-<img alt="https://mhutchie.gallerycdn.vsassets.io/extensions/mhutchie/git-graph/1.30.0/1617594001998/Microsoft.VisualStudio.Services.Icons.Default" src="https://mhutchie.gallerycdn.vsassets.io/extensions/mhutchie/git-graph/1.30.0/1617594001998/Microsoft.VisualStudio.Services.Icons.Default" />
+<p>Finally the results were committed, pushed, merged to master:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git commit
+$ git push github adopt-skeleton
+</pre></div>
+</div>
+<img alt="../_images/git_merge.png" src="../_images/git_merge.png" />
 </section>
 </section>
 
