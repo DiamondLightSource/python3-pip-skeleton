@@ -127,7 +127,7 @@ def main(args=None):
     sub.set_defaults(func=new)
     sub.add_argument("path", type=Path, help="Path to new repo to create")
     sub.add_argument(
-        "--org", default="dls-controls", help="Github org, default dls-controls"
+        "--org", default="dls-controls", help="GitHub org, default dls-controls"
     )
     sub.add_argument(
         "--package", default=None, help="Package name, defaults to directory name"
@@ -143,7 +143,7 @@ def main(args=None):
     sub.set_defaults(func=existing)
     sub.add_argument("path", type=Path, help="Path to new repo to existing repo")
     sub.add_argument(
-        "--org", default="dls-controls", help="Github org, default dls-controls"
+        "--org", default="dls-controls", help="GitHub org, default dls-controls"
     )
     sub.add_argument(
         "--package", default=None, help="Package name, defaults to directory name"

@@ -21,7 +21,7 @@ It integrates the following tools:
 - Pre-commit with black, flake8, isort and mypy for static analysis
 - Pytest for code and coverage
 - Sphinx for tutorials, how-to guides, explanations and reference documentation
-- Github Actions for code and docs CI and deployment to PyPI and Github Pages
+- GitHub Actions for code and docs CI and deployment to PyPI and GitHub Pages
 - VSCode settings using black, flake8, isort and mypy on save
 
 The ``skeleton`` branch of this module contains the source code that can be
