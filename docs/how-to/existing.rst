@@ -25,8 +25,9 @@ This will:
 Example merge
 -------------
 
-As an example, `scanspec #33 <url>`_ shows the what this adoption looks like.
-The commandline tool was run on the existing repo::
+As an example, `scanspec #46
+<https://github.com/dls-controls/scanspec/pull/46>`_ shows the what this
+adoption looks like. The commandline tool was run on the existing repo::
 
     $ cd /path/to/scanspec
     $ git checkout -b adopt-skeleton
@@ -74,7 +75,16 @@ The commandline tool was run on the existing repo::
         git branch -d skeleton-merge-branch
     Instructions on how to develop this module are in CONTRIBUTING.rst
 
-Each of these merge conflicts was fixed, then the pipenv dependencies updated::
+First of the boilerplate files were removed::
+
+    $ git rm src/scanspec/hello.py docs/images/dls-logo.svg docs/images/dls-favicon.ico docs/how-to/accomplish-a-task.rst docs/explanations/why-is-something-so.rst -f
+    rm 'docs/explanations/why-is-something-so.rst'
+    rm 'docs/how-to/accomplish-a-task.rst'
+    rm 'docs/images/dls-favicon.ico'
+    rm 'docs/images/dls-logo.svg'
+    rm 'src/scanspec/hello.py'
+
+Then the merge conflicts were fixed, and the pipenv dependencies updated::
 
     $ pipenv --rm
     $ rm Pipfile.lock
@@ -85,11 +95,9 @@ The tests and docs were then run and checked::
     $ pipenv run tests
     $ pipenv run docs
 
-Finally the results were committed:
+Finally the results were committed, pushed, merged to master::
 
-.. image:: https://mhutchie.gallerycdn.vsassets.io/extensions/mhutchie/git-graph/1.30.0/1617594001998/Microsoft.VisualStudio.Services.Icons.Default
+    $ git commit
+    $ git push github adopt-skeleton
 
-
-
-
-
+.. image:: ../images/git_merge.png
