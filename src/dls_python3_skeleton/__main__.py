@@ -59,7 +59,7 @@ def merge_skeleton(
         # Delete all the current files if there are any
         git_tmp("rm", "-rf", ".", "--ignore-unmatch")
         # Merge in the skeleton commits
-        git_tmp("pull", SKELETON)
+        git_tmp("pull", SKELETON, "skeleton")
         # Move things around
         git_tmp("mv", "src/dls_python3_skeleton", f"src/{package}")
         git_tmp("mv", "tests/test_dls_python3_skeleton.py", f"tests/test_{package}.py")
@@ -95,6 +95,7 @@ def new(args):
     path: Path = args.path
     path.mkdir(parents=True)
     git("init", cwd=path)
+    print(f"Created git repo in {path}")
     merge_skeleton(
         path=path,
         org=args.org,
