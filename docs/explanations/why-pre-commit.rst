@@ -39,7 +39,11 @@ If using VSCode, this will still run black, flake8 and mypy on file save, but
 for those using other editors and for CI another solution was needed. Enter
 `pre-commit <https://pre-commit.com/>`_. This allows hooks to be run at ``git
 commit`` time on just the files that have changed, as well as on all tracked
-files by CI. The graph now looks like:
+files by CI. All that is needed is a one time install of the git commit hook::
+
+  $ pipenv run pre-commit install
+
+The graph now looks like:
 
 - pytest
 - pre-commit
@@ -56,4 +60,3 @@ Now the workflow looks like this:
 - Commit files and pre-commit runs black, flake8 and mypy on them
 - Push to remote and CI runs black, flake8, mypy once on all files, then pytest
   multiple times in a test matrix
-
