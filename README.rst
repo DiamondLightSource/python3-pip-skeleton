@@ -12,7 +12,7 @@ Python projects.
 PyPI           ``pip install dls_python3_skeleton``
 Source code    https://github.com/dls-controls/dls-python3-skeleton
 Documentation  https://dls-controls.github.io/dls-python3-skeleton
-Changelog      https://github.com/dls-controls/dls-python3-skeleton/blob/master/CHANGELOG.rst
+Releases       https://github.com/dls-controls/dls-python3-skeleton/releases
 ============== ==============================================================
 
 It integrates the following tools:
