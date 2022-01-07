@@ -13,6 +13,12 @@ This will:
 - Create a new repo at the requested path, forked from the skeleton repo
 - Create a single commit that modifies the skeleton with the repo and package name
 
+.. note::
+
+    If you installed the commandline tool in a virtualenv, be sure to run
+    ``deactivate`` when you have finished running it, otherwise ``pipenv
+    install`` will use your virtualenv rather than making its own
+
 Getting started with your new repo
 ----------------------------------
 

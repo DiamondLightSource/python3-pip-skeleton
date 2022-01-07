@@ -16,6 +16,12 @@ This will:
 - Push that merge branch back to the existing repo
 - Merge with the currently checked out branch, leaving you to fix the conflicts
 
+.. note::
+
+    If you installed the commandline tool in a virtualenv, be sure to run
+    ``deactivate`` when you have finished running it, otherwise ``pipenv
+    install`` will use your virtualenv rather than making its own
+
 Example merge
 -------------
 
