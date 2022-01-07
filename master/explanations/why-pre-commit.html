@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Why use pre-commit &mdash; dls-python3-skeleton 1.0+6.gbae5c35 documentation</title>
+  <title>Why use pre-commit &mdash; dls-python3-skeleton 1.0+7.g5a96d1a documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
@@ -102,34 +102,41 @@
 </ul>
 <p>The initial approach this module took was to integrate everything
 under pytest that had a plugin, and isort under flake8:</p>
-<ul class="simple">
-<li><p>pytest</p>
-<ul>
-<li><p>pytest-black</p></li>
-<li><p>pytest-mypy</p></li>
-<li><p>pytest-flake8</p>
-<ul>
-<li><p>flake8-isort</p></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+<div class="graphviz"><object data="../_images/graphviz-d4e7b8406fb415647e7da6cc53b1d99fd5abf2cf.svg" type="image/svg+xml" class="graphviz">
+<p class="warning">digraph initial {
+bgcolor=transparent
+graph [fontname=&quot;Lato&quot; fontsize=10 style=filled fillcolor=&quot;#8BC4E9&quot;]
+node [fontname=&quot;Lato&quot; fontsize=10 shape=box style=filled fillcolor=&quot;#8BC4E9&quot;]
+
+subgraph cluster_0 {
+  label = &quot;pytest&quot;
+  &quot;pytest-black&quot;
+  &quot;pytest-mypy&quot;
+  subgraph cluster_1 {
+    label = &quot;pytest-flake8&quot;
+    &quot;flake8-isort&quot;
+  }
+}
+}</p></object></div>
 <p>This had the advantage that a <code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">run</span> <span class="pre">tests</span></code> run in CI would catch and
 report all test failures, but made each run take longer than it needed to. Also,
 flake8 states that it <a class="reference external" href="https://flake8.pycqa.org/en/latest/user/python-api.html">does not have a public, stable, Python API</a> so did not
 recommend the approach taken by pytest-flake8.</p>
 <p>To address this, the tree was rearranged:</p>
-<ul class="simple">
-<li><p>pytest</p></li>
-<li><p>black</p></li>
-<li><p>mypy</p></li>
-<li><p>flake8</p>
-<ul>
-<li><p>flake8-isort</p></li>
-</ul>
-</li>
-</ul>
+<div class="graphviz"><object data="../_images/graphviz-e7b058250963a789adcb77f1bcc146c976870f79.svg" type="image/svg+xml" class="graphviz">
+<p class="warning">digraph rearranged {
+bgcolor=transparent
+graph [fontname=&quot;Lato&quot; fontsize=10 style=filled fillcolor=&quot;#8BC4E9&quot;]
+node [fontname=&quot;Lato&quot; fontsize=10 shape=box style=filled fillcolor=&quot;#8BC4E9&quot;]
+
+pytest
+black
+mypy
+subgraph cluster_1 {
+  label = &quot;flake8&quot;
+  &quot;flake8-isort&quot;
+}
+}</p></object></div>
 <p>If using VSCode, this will still run black, flake8 and mypy on file save, but
 for those using other editors and for CI another solution was needed. Enter
 <a class="reference external" href="https://pre-commit.com/">pre-commit</a>. This allows hooks to be run at <code class="docutils literal notranslate"><span class="pre">git</span>
@@ -139,17 +146,23 @@ files by CI. All that is needed is a one time install of the git commit hook:</p
 </pre></div>
 </div>
 <p>The graph now looks like:</p>
-<ul class="simple">
-<li><p>pytest</p></li>
-<li><p>pre-commit</p>
-<ul>
-<li><p>black</p></li>
-<li><p>mypy</p></li>
-<li><p>flake8</p></li>
-<li><p>flake8-isort</p></li>
-</ul>
-</li>
-</ul>
+<div class="graphviz"><object data="../_images/graphviz-57e99f22a3e31eccc314f4db8413c4d4b5b2a6c6.svg" type="image/svg+xml" class="graphviz">
+<p class="warning">digraph rearranged {
+bgcolor=transparent
+graph [fontname=&quot;Lato&quot; fontsize=10 style=filled fillcolor=&quot;#8BC4E9&quot;]
+node [fontname=&quot;Lato&quot; fontsize=10 shape=box style=filled fillcolor=&quot;#8BC4E9&quot;]
+
+pytest
+subgraph cluster_0 {
+  label = &quot;pre-commit&quot;
+  black
+  mypy
+  subgraph cluster_1 {
+    label = &quot;flake8&quot;
+    &quot;flake8-isort&quot;
+  }
+}
+}</p></object></div>
 <p>Now the workflow looks like this:</p>
 <ul class="simple">
 <li><p>Save file, VSCode runs black, flake8 and mypy on it</p></li>
