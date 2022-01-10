@@ -1,4 +1,5 @@
 import re
+import shutil
 from argparse import ArgumentParser
 from configparser import ConfigParser
 from pathlib import Path
@@ -37,6 +38,9 @@ class GitTemporaryDirectory(TemporaryDirectory):
     def __call__(self, *args) -> str:
         return git(*args, cwd=self.name)
 
+    def __truediv__(self, other) -> Path:
+        return Path(self.name) / other
+
 
 def merge_skeleton(
     path: Path,
@@ -58,6 +62,9 @@ def merge_skeleton(
         git_tmp("checkout", "--orphan", MERGE_BRANCH)
         # Delete all the current files if there are any
         git_tmp("rm", "-rf", ".", "--ignore-unmatch")
+        # And make sure src isn't there otherwise the git mv below
+        # will do the wrong thing
+        shutil.rmtree(git_tmp / "src", ignore_errors=True)
         # Merge in the skeleton commits
         git_tmp("pull", SKELETON, "skeleton")
         # Move things around
