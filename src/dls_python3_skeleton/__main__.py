@@ -95,12 +95,19 @@ def merge_skeleton(
         # The merge failed, so ask the user to fix it
         print("Please fix the conflicts above, then you can run:")
         print(f"    git branch -d {MERGE_BRANCH}")
+    else:
+        git("branch", "-d", MERGE_BRANCH, cwd=path)
     print("Instructions on how to develop this module are in CONTRIBUTING.rst")
 
 
 def new(args):
     path: Path = args.path
-    path.mkdir(parents=True)
+    if path.exists():
+        assert path.is_dir() and not list(
+            path.iterdir()
+        ), f"Expected {path} to not exist, or be an empty dir"
+    else:
+        path.mkdir(parents=True)
     git("init", cwd=path)
     print(f"Created git repo in {path}")
     merge_skeleton(
@@ -114,6 +121,7 @@ def new(args):
 
 def existing(args):
     path: Path = args.path
+    assert path.is_dir(), f"Expected {path} to be an existing directory"
     conf = ConfigParser()
     conf.read(path / "setup.cfg")
     merge_skeleton(

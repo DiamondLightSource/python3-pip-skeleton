@@ -22,10 +22,12 @@ It integrates the following tools:
 - Pytest for code and coverage
 - Sphinx for tutorials, how-to guides, explanations and reference documentation
 - GitHub Actions for code and docs CI and deployment to PyPI and GitHub Pages
-- VSCode settings using black, flake8, isort and mypy on save
+- If you use VSCode, it will run black, flake8, isort and mypy on save
 
 The ``skeleton`` branch of this module contains the source code that can be
 merged into new or existing projects, and pulled from to keep them up to date.
+It can also serve as a working example for those who would prefer to
+cherry-pick.
 
 The ``master`` branch contains the
 docs and a command line tool to ease the adoption of this skeleton into new::
