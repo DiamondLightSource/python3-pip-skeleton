@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>dls-python3-skeleton &mdash; dls-python3-skeleton 1.1+1.gc275589 documentation</title>
+  <title>dls-python3-skeleton &mdash; dls-python3-skeleton 1.2+4.g29ec0cc documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
@@ -91,7 +91,7 @@
              
   <section id="dls-python3-skeleton">
 <h1>dls-python3-skeleton<a class="headerlink" href="#dls-python3-skeleton" title="Permalink to this headline"></a></h1>
-<p><a class="reference external" href="https://github.com/dls-controls/dls-python3-skeleton/actions?query=workflow%3A%22Code+CI%22"><img alt="Code CI" src="https://github.com/dls-controls/dls-python3-skeleton/workflows/Code%20CI/badge.svg?branch=master" /></a> <a class="reference external" href="https://github.com/dls-controls/dls-python3-skeleton/actions?query=workflow%3A%22Docs+CI%22"><img alt="Docs CI" src="https://github.com/dls-controls/dls-python3-skeleton/workflows/Docs%20CI/badge.svg?branch=master" /></a> <a class="reference external" href="https://codecov.io/gh/dls-controls/dls-python3-skeleton"><img alt="Test Coverage" src="https://codecov.io/gh/dls-controls/dls-python3-skeleton/branch/master/graph/badge.svg" /></a> <a class="reference external" href="https://pypi.org/project/dls_python3_skeleton"><img alt="Latest PyPI version" src="https://img.shields.io/pypi/v/dls_python3_skeleton.svg" /></a> <a class="reference external" href="https://opensource.org/licenses/Apache-2.0"><img alt="Apache License" src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" /></a></p>
+<p><a class="reference external" href="https://github.com/dls-controls/dls-python3-skeleton/actions?query=workflow%3A%22Code+CI%22"><img alt="Code CI" src="https://github.com/dls-controls/dls-python3-skeleton/workflows/Code%20CI/badge.svg?branch=master" /></a> <a class="reference external" href="https://github.com/dls-controls/dls-python3-skeleton/actions?query=workflow%3A%22Docs+CI%22"><img alt="Docs CI" src="https://github.com/dls-controls/dls-python3-skeleton/workflows/Docs%20CI/badge.svg?branch=master" /></a> <a class="reference external" href="https://codecov.io/gh/dls-controls/dls-python3-skeleton"><img alt="Test Coverage" src="https://codecov.io/gh/dls-controls/dls-python3-skeleton/branch/master/graph/badge.svg" /></a> <a class="reference external" href="https://pypi.org/project/dls-python3-skeleton"><img alt="Latest PyPI version" src="https://img.shields.io/pypi/v/dls-python3-skeleton.svg" /></a> <a class="reference external" href="https://opensource.org/licenses/Apache-2.0"><img alt="Apache License" src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" /></a></p>
 <p>This skeleton module (inspired by <a class="reference external" href="https://blog.jaraco.com/skeleton/">jaraco/skeleton</a>) is a generic Python project structure
 which provides a means to keep tools and techniques in sync between multiple
 Python projects.</p>
@@ -102,7 +102,7 @@ Python projects.</p>
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p>PyPI</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">dls_python3_skeleton</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">dls-python3-skeleton</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p>Source code</p></td>
 <td><p><a class="reference external" href="https://github.com/dls-controls/dls-python3-skeleton">https://github.com/dls-controls/dls-python3-skeleton</a></p></td>
@@ -122,10 +122,12 @@ Python projects.</p>
 <li><p>Pytest for code and coverage</p></li>
 <li><p>Sphinx for tutorials, how-to guides, explanations and reference documentation</p></li>
 <li><p>GitHub Actions for code and docs CI and deployment to PyPI and GitHub Pages</p></li>
-<li><p>VSCode settings using black, flake8, isort and mypy on save</p></li>
+<li><p>If you use VSCode, it will run black, flake8, isort and mypy on save</p></li>
 </ul>
 <p>The <code class="docutils literal notranslate"><span class="pre">skeleton</span></code> branch of this module contains the source code that can be
-merged into new or existing projects, and pulled from to keep them up to date.</p>
+merged into new or existing projects, and pulled from to keep them up to date.
+It can also serve as a working example for those who would prefer to
+cherry-pick.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">master</span></code> branch contains the
 docs and a command line tool to ease the adoption of this skeleton into new:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dls</span><span class="o">-</span><span class="n">python3</span><span class="o">-</span><span class="n">skeleton</span> <span class="n">new</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">be</span><span class="o">/</span><span class="n">created</span>
