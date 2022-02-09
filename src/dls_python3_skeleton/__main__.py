@@ -18,8 +18,14 @@ MERGE_BRANCH = "skeleton-merge-branch"
 CHANGE_SUFFIXES = [".py", ".rst", ".cfg", ""]
 # Files not to change
 IGNORE_FILES = ["CHANGELOG.rst", "test_boilerplate_removed.py", "_version_git.py"]
-# Markers to ignore from
-IGNORE_MARKERS = {"CONTRIBUTING.rst": "\nUpdating the tools\n"}
+# Ranges to ignore between
+IGNORE_RANGES = {
+    "CONTRIBUTING.rst": ("\nUpdating the tools\n", None),
+    "api.rst": (
+        "Version number as calculated by",
+        "https://github.com/dls-controls/versiongit",
+    ),
+}
 
 
 def git(*args, cwd=None) -> str:
@@ -54,6 +60,15 @@ def merge_skeleton(
     package = override_package or repo
     valid = re.match("[a-zA-Z][a-zA-Z_0-9]*$", package)
     assert valid, f"'{package}' is not a valid python package name"
+
+    def replace_text(text: str) -> str:
+        text = text.replace("dls-controls", org)
+        text = text.replace("dls-python3-skeleton", repo)
+        text = text.replace("dls_python3_skeleton", package)
+        text = text.replace("Firstname Lastname", full_name)
+        text = text.replace("email@address.com", email)
+        return text
+
     with GitTemporaryDirectory() as git_tmp:
         # Clone existing repo into tmp so we don't mess up if we fail
         # half way through
@@ -75,17 +90,25 @@ def merge_skeleton(
             child = Path(git_tmp.name) / relative_child
             if child.suffix in CHANGE_SUFFIXES and child.name not in IGNORE_FILES:
                 text = child.read_text()
-                marker = IGNORE_MARKERS.get(child.name, "")
-                if marker:
-                    text, marker, ignore = text.partition(marker)
+                start_search, end_search = IGNORE_RANGES.get(child.name, (None, None))
+                if start_search:
+                    start_ignore = text.find(start_search)
+                    assert start_ignore > 0, f"{start_search} not in {child.name}"
+                    if end_search:
+                        end_ignore = text.find(end_search, start_ignore) + len(
+                            end_search
+                        )
+                        assert end_ignore > 0, f"{end_search} not in {child.name}"
+                    else:
+                        end_ignore = len(text)
                 else:
-                    ignore = ""
-                text = text.replace("dls-controls", org)
-                text = text.replace("dls-python3-skeleton", repo)
-                text = text.replace("dls_python3_skeleton", package)
-                text = text.replace("Firstname Lastname", full_name)
-                text = text.replace("email@address.com", email)
-                child.write_text(text + marker + ignore)
+                    start_ignore = 0
+                    end_ignore = 0
+                child.write_text(
+                    replace_text(text[:start_ignore])
+                    + text[start_ignore:end_ignore]
+                    + replace_text(text[end_ignore:])
+                )
         # Commit what we have and push to the original repo
         git_tmp("commit", "-a", "-m", f"Rename dls-python3-skeleton -> {repo}")
         git_tmp("push", "origin", MERGE_BRANCH)

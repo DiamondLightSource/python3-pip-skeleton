@@ -29,6 +29,7 @@ def test_new_module(tmp_path: Path):
         "-m",
         "dls_python3_skeleton",
         "new",
+        "--org=myorg",
         "--package=my_module",
         "--full-name=Firstname Lastname",
         "--email=me@myaddress.com",
@@ -42,6 +43,15 @@ def test_new_module(tmp_path: Path):
     conf.read(module / "setup.cfg")
     assert conf["metadata"]["author"] == "Firstname Lastname"
     assert conf["metadata"]["author_email"] == "me@myaddress.com"
+    versiongit_lines = [
+        line
+        for line in (module / "docs" / "reference" / "api.rst").read_text().splitlines()
+        if "versiongit" in line
+    ]
+    assert (
+        "    Version number as calculated by https://github.com/dls-controls/versiongit"
+        in versiongit_lines
+    )
     assert (module / "src" / "my_module").is_dir()
     assert check_output("git", "branch", cwd=module).strip() == "* master"
     check_output("pipenv", "install", "--dev", cwd=module)
