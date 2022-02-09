@@ -1,0 +1,2 @@
+explanations/why-use-skeleton.rst:4: [redirected with Found] https://cookiecutter.readthedocs.io to https://cookiecutter.readthedocs.io/en/1.7.2/
+index.rst:4: [redirected permanently] https://codecov.io/gh/dls-controls/dls-python3-skeleton to https://app.codecov.io/gh/dls-controls/dls-python3-skeleton
