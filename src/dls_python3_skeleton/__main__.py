@@ -127,7 +127,7 @@ def merge_skeleton(
 def new(args):
     path: Path = args.path
 
-    package = path.name
+    package = args.package or path.name
     valid = VALID_PKG.match(package)
     assert valid, f"'{package}' is not a valid python package name"
 
