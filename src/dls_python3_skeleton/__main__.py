@@ -26,6 +26,7 @@ IGNORE_RANGES = {
         "https://github.com/dls-controls/versiongit",
     ),
 }
+VALID_PKG = re.compile("[a-zA-Z][a-zA-Z_0-9]*$")
 
 
 def git(*args, cwd=None) -> str:
@@ -58,7 +59,7 @@ def merge_skeleton(
     path = path.resolve()
     repo = path.name
     package = override_package or repo
-    valid = re.match("[a-zA-Z][a-zA-Z_0-9]*$", package)
+    valid = VALID_PKG.match(package)
     assert valid, f"'{package}' is not a valid python package name"
 
     def replace_text(text: str) -> str:
@@ -125,6 +126,11 @@ def merge_skeleton(
 
 def new(args):
     path: Path = args.path
+
+    package = path.name
+    valid = VALID_PKG.match(package)
+    assert valid, f"'{package}' is not a valid python package name"
+
     if path.exists():
         assert path.is_dir() and not list(
             path.iterdir()
