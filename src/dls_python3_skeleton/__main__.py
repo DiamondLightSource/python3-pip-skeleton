@@ -129,7 +129,6 @@ def validate_package(args) -> str:
 
 def new(args):
     path: Path = args.path
-    package = validate_package(args)
 
     if path.exists():
         assert path.is_dir() and not list(
@@ -137,6 +136,8 @@ def new(args):
         ), f"Expected {path} to not exist, or be an empty dir"
     else:
         path.mkdir(parents=True)
+
+    package = validate_package(args)
     git("init", cwd=path)
     print(f"Created git repo in {path}")
     merge_skeleton(
@@ -150,9 +151,9 @@ def new(args):
 
 def existing(args):
     path: Path = args.path
-    package = validate_package(args)
 
     assert path.is_dir(), f"Expected {path} to be an existing directory"
+    package = validate_package(args)
     conf = ConfigParser()
     conf.read(path / "setup.cfg")
     merge_skeleton(
