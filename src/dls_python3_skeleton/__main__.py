@@ -26,7 +26,6 @@ IGNORE_RANGES = {
         "https://github.com/dls-controls/versiongit",
     ),
 }
-VALID_PKG = re.compile("[a-zA-Z][a-zA-Z_0-9]*$")
 
 
 def git(*args, cwd=None) -> str:
@@ -54,13 +53,10 @@ def merge_skeleton(
     org: str,
     full_name: str,
     email: str,
-    override_package: str = None,
+    package,
 ):
     path = path.resolve()
     repo = path.name
-    package = override_package or repo
-    valid = VALID_PKG.match(package)
-    assert valid, f"'{package}' is not a valid python package name"
 
     def replace_text(text: str) -> str:
         text = text.replace("dls-controls", org)
@@ -124,12 +120,16 @@ def merge_skeleton(
     print("Instructions on how to develop this module are in CONTRIBUTING.rst")
 
 
+def validate_package(args) -> str:
+    package = args.package or args.path.name
+    valid = re.match("[a-zA-Z][a-zA-Z_0-9]*$", package)
+    assert valid, f"'{package}' is not a valid python package name"
+    return package
+
+
 def new(args):
     path: Path = args.path
-
-    package = args.package or path.name
-    valid = VALID_PKG.match(package)
-    assert valid, f"'{package}' is not a valid python package name"
+    package = validate_package(args)
 
     if path.exists():
         assert path.is_dir() and not list(
@@ -144,12 +144,14 @@ def new(args):
         org=args.org,
         full_name=args.full_name or git("config", "--get", "user.name").strip(),
         email=args.email or git("config", "--get", "user.email").strip(),
-        override_package=args.package,
+        package=package,
     )
 
 
 def existing(args):
     path: Path = args.path
+    package = validate_package(args)
+
     assert path.is_dir(), f"Expected {path} to be an existing directory"
     conf = ConfigParser()
     conf.read(path / "setup.cfg")
@@ -158,7 +160,7 @@ def existing(args):
         org=args.org,
         full_name=conf["metadata"]["author"],
         email=conf["metadata"]["author_email"],
-        override_package=args.package,
+        package=package,
     )
 
 
