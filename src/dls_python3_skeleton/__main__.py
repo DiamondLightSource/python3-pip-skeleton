@@ -66,57 +66,62 @@ def merge_skeleton(
         text = text.replace("email@address.com", email)
         return text
 
-    with GitTemporaryDirectory() as git_tmp:
-        # Clone existing repo into tmp so we don't mess up if we fail
-        # half way through
-        git_tmp("clone", path, git_tmp.name)
-        # We will use this branch to put the skeleton changes on
-        git_tmp("checkout", "--orphan", MERGE_BRANCH)
-        # Delete all the current files if there are any
-        git_tmp("rm", "-rf", ".", "--ignore-unmatch")
-        # And make sure src isn't there otherwise the git mv below
-        # will do the wrong thing
-        shutil.rmtree(git_tmp / "src", ignore_errors=True)
-        # Merge in the skeleton commits
-        git_tmp("pull", SKELETON, "skeleton")
-        # Move things around
-        git_tmp("mv", "src/dls_python3_skeleton", f"src/{package}")
-        git_tmp("mv", "tests/test_dls_python3_skeleton.py", f"tests/test_{package}.py")
-        # Change contents of all children known to git
-        for relative_child in git_tmp("ls-files").splitlines():
-            child = Path(git_tmp.name) / relative_child
-            if child.suffix in CHANGE_SUFFIXES and child.name not in IGNORE_FILES:
-                text = child.read_text()
-                start_search, end_search = IGNORE_RANGES.get(child.name, (None, None))
-                if start_search:
-                    start_ignore = text.find(start_search)
-                    assert start_ignore > 0, f"{start_search} not in {child.name}"
-                    if end_search:
-                        end_ignore = text.find(end_search, start_ignore) + len(
-                            end_search
-                        )
-                        assert end_ignore > 0, f"{end_search} not in {child.name}"
-                    else:
-                        end_ignore = len(text)
-                else:
-                    start_ignore = 0
-                    end_ignore = 0
-                child.write_text(
-                    replace_text(text[:start_ignore])
-                    + text[start_ignore:end_ignore]
-                    + replace_text(text[end_ignore:])
-                )
-        # Commit what we have and push to the original repo
-        git_tmp("commit", "-a", "-m", f"Rename dls-python3-skeleton -> {repo}")
-        git_tmp("push", "origin", MERGE_BRANCH)
-    try:
-        git("merge", MERGE_BRANCH, "--allow-unrelated-histories", cwd=path)
-    except CalledProcessError:
-        # The merge failed, so ask the user to fix it
-        print("Please fix the conflicts above, then you can run:")
-        print(f"    git branch -d {MERGE_BRANCH}")
+    branches = [x[2:] for x in str(git("branch", "--list")).split("\n")]
+
+    if "skeleton-merge-branch" in branches:
+        print("Merge branch already exists. Skipping creation...")
     else:
-        git("branch", "-d", MERGE_BRANCH, cwd=path)
+        with GitTemporaryDirectory() as git_tmp:
+            # Clone existing repo into tmp so we don't mess up if we fail
+            # half way through
+            git_tmp("clone", path, git_tmp.name)
+            # We will use this branch to put the skeleton changes on
+            git_tmp("checkout", "--orphan", MERGE_BRANCH)
+            # Delete all the current files if there are any
+            git_tmp("rm", "-rf", ".", "--ignore-unmatch")
+            # And make sure src isn't there otherwise the git mv below
+            # will do the wrong thing
+            shutil.rmtree(git_tmp / "src", ignore_errors=True)
+            # Merge in the skeleton commits
+            git_tmp("pull", SKELETON, "skeleton")
+            # Move things around
+            git_tmp("mv", "src/dls_python3_skeleton", f"src/{package}")
+            git_tmp("mv", "tests/test_dls_python3_skeleton.py", f"tests/test_{package}.py")
+            # Change contents of all children known to git
+            for relative_child in git_tmp("ls-files").splitlines():
+                child = Path(git_tmp.name) / relative_child
+                if child.suffix in CHANGE_SUFFIXES and child.name not in IGNORE_FILES:
+                    text = child.read_text()
+                    start_search, end_search = IGNORE_RANGES.get(child.name, (None, None))
+                    if start_search:
+                        start_ignore = text.find(start_search)
+                        assert start_ignore > 0, f"{start_search} not in {child.name}"
+                        if end_search:
+                            end_ignore = text.find(end_search, start_ignore) + len(
+                                end_search
+                            )
+                            assert end_ignore > 0, f"{end_search} not in {child.name}"
+                        else:
+                            end_ignore = len(text)
+                    else:
+                        start_ignore = 0
+                        end_ignore = 0
+                    child.write_text(
+                        replace_text(text[:start_ignore])
+                        + text[start_ignore:end_ignore]
+                        + replace_text(text[end_ignore:])
+                    )
+            # Commit what we have and push to the original repo
+            git_tmp("commit", "-a", "-m", f"Rename dls-python3-skeleton -> {repo}")
+            git_tmp("push", "origin", MERGE_BRANCH)
+        try:
+            git("merge", MERGE_BRANCH, "--allow-unrelated-histories", cwd=path)
+        except CalledProcessError:
+            # The merge failed, so ask the user to fix it
+            print("Please fix the conflicts above, then you can run:")
+            print(f"    git branch -d {MERGE_BRANCH}")
+        else:
+            git("branch", "-d", MERGE_BRANCH, cwd=path)
     print("Instructions on how to develop this module are in CONTRIBUTING.rst")
 
 
