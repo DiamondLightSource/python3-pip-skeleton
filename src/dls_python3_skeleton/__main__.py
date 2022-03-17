@@ -149,6 +149,13 @@ def new(args):
     )
 
 
+cfg_issue = """Missing parameter in setup.cfg. Expected format:
+[metadata]
+name = example
+author = Firstname Lastname
+author_email = email@address.com"""
+
+
 def existing(args):
     path: Path = args.path
 
@@ -156,6 +163,8 @@ def existing(args):
     package = validate_package(args)
     conf = ConfigParser()
     conf.read(path / "setup.cfg")
+    assert "author" in conf["metadata"], cfg_issue
+    assert "author_email" in conf["metadata"], cfg_issue
     merge_skeleton(
         path=args.path,
         org=args.org,
