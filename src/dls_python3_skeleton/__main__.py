@@ -86,14 +86,14 @@ def merge_skeleton(
             git_tmp("pull", SKELETON, "skeleton")
             # Move things around
             git_tmp("mv", "src/dls_python3_skeleton", f"src/{package}")
-            git_tmp("mv", "tests/test_dls_python3_skeleton.py", 
+            git_tmp("mv", "tests/test_dls_python3_skeleton.py",
                     f"tests/test_{package}.py")
             # Change contents of all children known to git
             for relative_child in git_tmp("ls-files").splitlines():
                 child = Path(git_tmp.name) / relative_child
                 if child.suffix in CHANGE_SUFFIXES and child.name not in IGNORE_FILES:
                     text = child.read_text()
-                    start_search, end_search = IGNORE_RANGES.get(child.name, 
+                    start_search, end_search = IGNORE_RANGES.get(child.name,
                                                                  (None, None))
                     if start_search:
                         start_ignore = text.find(start_search)
