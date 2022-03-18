@@ -179,6 +179,19 @@ def existing(args):
     )
 
 
+def clean_repo(args):
+    path: Path = args.path
+
+    assert path.is_dir(), f"Expected {path} to be an existing directory"
+
+    branches = [x[2:] for x in str(git("branch", "--list")).split("\n")]
+    assert "skeleton-merge-branch" in branches, \
+        "Expected skeleton-merge-branch to be in existing repo"
+
+    git("branch", "-D", "skeleton-merge-branch")
+    print("skeleton-merge-branch deleted from existing repo")
+
+
 def main(args=None):
     parser = ArgumentParser()
     subparsers = parser.add_subparsers()
@@ -209,6 +222,10 @@ def main(args=None):
     sub.add_argument(
         "--package", default=None, help="Package name, defaults to directory name"
     )
+    # Add a command for cleaning an existing repo of skeleton code
+    sub = subparsers.add_parser("clean", help="Clean skeleton from existing repo")
+    sub.set_defaults(func=clean_repo)
+    sub.add_argument("path", type=Path, help="Path to existing repo with skeleton code")
     # Parse args and run
     args = parser.parse_args(args)
     args.func(args)
