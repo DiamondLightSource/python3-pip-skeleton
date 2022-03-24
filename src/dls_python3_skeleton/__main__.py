@@ -190,7 +190,7 @@ def clean_repo(args):
 
     branches = [x[2:] for x in str(git("branch", "--list")).split("\n")]
     assert (
-        "skeleton-merge-branch" in branches,
+        "skeleton-merge-branch" in branches
     ), "Expected skeleton-merge-branch to be in existing repo"
 
     git("branch", "-D", "skeleton-merge-branch")
