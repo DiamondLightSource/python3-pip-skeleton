@@ -95,3 +95,28 @@ Please fix the conflicts above, then you can run:
 Instructions on how to develop this module are in CONTRIBUTING.rst
 """
     )
+
+
+def test_clean_existing(tmp_path: Path):
+    MERGE_BRANCH = "skeleton-merge-branch"
+    module = tmp_path / "scanspec"
+    __main__.git(
+        "clone",
+        "--depth",
+        "1",
+        "--branch",
+        "0.5.3",
+        "https://github.com/dls-controls/scanspec",
+        str(module),
+    )
+    __main__.git("checkout", "-b", f"{MERGE_BRANCH}", cwd=str(module))
+    __main__.git("checkout", "-", cwd=str(module))
+    output = check_output(
+        sys.executable,
+        "-m",
+        "dls_python3_skeleton",
+        "clean",
+        ".",
+        cwd=str(module),
+    )
+    assert output.strip("\n") == f"{MERGE_BRANCH} deleted from existing repo"
