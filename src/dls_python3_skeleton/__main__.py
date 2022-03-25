@@ -231,7 +231,9 @@ def main(args=None):
         "--package", default=None, help="Package name, defaults to directory name"
     )
     # Add a command for cleaning an existing repo of skeleton code
-    sub = subparsers.add_parser("clean", help="Clean up branch from failed skeleton merge")
+    sub = subparsers.add_parser(
+        "clean", help="Clean up branch from failed skeleton merge"
+    )
     sub.set_defaults(func=clean_repo)
     sub.add_argument("path", type=Path, help="Path to existing repo with skeleton code")
     # Parse args and run
