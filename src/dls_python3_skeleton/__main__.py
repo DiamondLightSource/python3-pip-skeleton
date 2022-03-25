@@ -68,8 +68,11 @@ def merge_skeleton(
 
     branches = [x[2:] for x in str(git("branch", "--list")).split("\n")]
 
-    if "skeleton-merge-branch" in branches:
-        print("Merge branch already exists. Skipping creation...")
+    if f"{MERGE_BRANCH}" in branches:
+        raise Exception(
+            f"{MERGE_BRANCH} already exists. \
+                Please run 'dls-python3-skeleton clean' to remove it."
+        )
     else:
         with GitTemporaryDirectory() as git_tmp:
             # Clone existing repo into tmp so we don't mess up if we fail
@@ -190,11 +193,11 @@ def clean_repo(args):
 
     branches = [x[2:] for x in str(git("branch", "--list")).split("\n")]
     assert (
-        "skeleton-merge-branch" in branches
-    ), "Expected skeleton-merge-branch to be in existing repo"
+        f"{MERGE_BRANCH}" in branches
+    ), f"Expected {MERGE_BRANCH} to be in existing repo"
 
-    git("branch", "-D", "skeleton-merge-branch")
-    print("skeleton-merge-branch deleted from existing repo")
+    git("branch", "-D", f"{MERGE_BRANCH}")
+    print(f"{MERGE_BRANCH} deleted from existing repo")
 
 
 def main(args=None):
