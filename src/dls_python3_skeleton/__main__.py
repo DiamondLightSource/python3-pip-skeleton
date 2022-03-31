@@ -168,8 +168,11 @@ def existing(args):
 
     assert path.is_dir(), f"Expected {path} to be an existing directory"
     package = validate_package(args)
+    file_path: Path = path / "setup.cfg"
+    assert file_path.is_file(), "Expected a setup.cfg file in the directory."
     conf = ConfigParser()
     conf.read(path / "setup.cfg")
+    assert "metadata" in conf, cfg_issue
     assert "author" in conf["metadata"], cfg_issue
     assert "author_email" in conf["metadata"], cfg_issue
     merge_skeleton(
