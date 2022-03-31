@@ -68,7 +68,7 @@ def merge_skeleton(
 
     branches = [x[2:] for x in str(git("branch", "--list")).split("\n")]
 
-    if f"{MERGE_BRANCH}" in branches:
+    if MERGE_BRANCH in branches:
         raise Exception(
             f"{MERGE_BRANCH} already exists. \
                 Please run 'dls-python3-skeleton clean' to remove it."
