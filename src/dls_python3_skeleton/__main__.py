@@ -66,7 +66,7 @@ def merge_skeleton(
         text = text.replace("email@address.com", email)
         return text
 
-    branches = [x[2:] for x in str(git("branch", "--list")).split("\n")]
+    branches = [x[2:] for x in str(git("branch", "--list", cwd=path)).split("\n")]
 
     if MERGE_BRANCH in branches:
         raise Exception(

@@ -95,18 +95,21 @@ Please fix the conflicts above, then you can run:
 Instructions on how to develop this module are in CONTRIBUTING.rst
 """
     )
-
+    __main__.git("merge", "--abort", cwd=str(module))
     MERGE_BRANCH = "skeleton-merge-branch"
-    output = check_output(
-        sys.executable,
-        "-m",
-        "dls_python3_skeleton",
-        "existing",
-        str(module),
-    )
-    assert output.endswith(
+
+    with pytest.raises(Exception) as excinfo:
+        output = check_output(
+            sys.executable,
+            "-m",
+            "dls_python3_skeleton",
+            "existing",
+            str(module),
+        )
+    assert (
         f"{MERGE_BRANCH} already exists. \
                 Please run 'dls-python3-skeleton clean' to remove it."
+        in str(excinfo.value)
     )
 
     branches = [
@@ -114,7 +117,6 @@ Instructions on how to develop this module are in CONTRIBUTING.rst
         for x in str(__main__.git("branch", "--list", cwd=str(module))).split("\n")
     ]
     assert MERGE_BRANCH in branches
-    # __main__.git("checkout", "-", cwd=str(module))
     output = check_output(
         sys.executable,
         "-m",
