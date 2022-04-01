@@ -96,21 +96,25 @@ Instructions on how to develop this module are in CONTRIBUTING.rst
 """
     )
 
-
-def test_clean_existing(tmp_path: Path):
     MERGE_BRANCH = "skeleton-merge-branch"
-    module = tmp_path / "scanspec"
-    __main__.git(
-        "clone",
-        "--depth",
-        "1",
-        "--branch",
-        "0.5.3",
-        "https://github.com/dls-controls/scanspec",
+    output = check_output(
+        sys.executable,
+        "-m",
+        "dls_python3_skeleton",
+        "existing",
         str(module),
     )
-    __main__.git("checkout", "-b", f"{MERGE_BRANCH}", cwd=str(module))
-    __main__.git("checkout", "-", cwd=str(module))
+    assert output.endswith(
+        f"{MERGE_BRANCH} already exists. \
+                Please run 'dls-python3-skeleton clean' to remove it."
+    )
+
+    branches = [
+        x[2:]
+        for x in str(__main__.git("branch", "--list", cwd=str(module))).split("\n")
+    ]
+    assert MERGE_BRANCH in branches
+    # __main__.git("checkout", "-", cwd=str(module))
     output = check_output(
         sys.executable,
         "-m",
