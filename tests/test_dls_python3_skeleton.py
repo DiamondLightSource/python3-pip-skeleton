@@ -20,7 +20,10 @@ def check_output(*args, cwd=None) -> str:
 
 def check_branches(module: str) -> List[str]:
     return [
-        x[2:] for x in str(__main__.git("branch", "--list", cwd=module)).split("\n")
+        x
+        for x in __main__.git("branch", "--format=%(refname:short)", cwd=module).split(
+            "\n"
+        )
     ]
 
 
