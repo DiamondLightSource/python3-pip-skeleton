@@ -5,6 +5,7 @@ from configparser import ConfigParser
 from pathlib import Path
 from subprocess import STDOUT, CalledProcessError, check_output
 from tempfile import TemporaryDirectory
+from typing import List
 
 from . import __version__
 
@@ -37,6 +38,10 @@ def git(*args, cwd=None) -> str:
         raise
 
 
+def list_branches(path: Path) -> List[str]:
+    return git("branch", "--format=%(refname:short)", cwd=path).split("\n")
+
+
 class GitTemporaryDirectory(TemporaryDirectory):
     def __enter__(self):
         return self
@@ -66,7 +71,7 @@ def merge_skeleton(
         text = text.replace("email@address.com", email)
         return text
 
-    branches = [x[2:] for x in str(git("branch", "--list", cwd=path)).split("\n")]
+    branches = list_branches(path)
 
     if MERGE_BRANCH in branches:
         raise Exception(
@@ -189,7 +194,7 @@ def clean_repo(args):
 
     assert path.is_dir(), f"Expected {path} to be an existing directory"
 
-    branches = [x[2:] for x in str(git("branch", "--list")).split("\n")]
+    branches = list_branches(path)
     assert (
         f"{MERGE_BRANCH}" in branches
     ), f"Expected {MERGE_BRANCH} to be in existing repo"
