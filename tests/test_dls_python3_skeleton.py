@@ -19,12 +19,7 @@ def check_output(*args, cwd=None) -> str:
 
 
 def check_branches(module: str) -> List[str]:
-    return [
-        x
-        for x in __main__.git("branch", "--format=%(refname:short)", cwd=module).split(
-            "\n"
-        )
-    ]
+    return __main__.git("branch", "--format=%(refname:short)", cwd=module).split("\n")
 
 
 def test_cli_version():
