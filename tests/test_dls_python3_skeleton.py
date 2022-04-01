@@ -2,6 +2,7 @@ import subprocess
 import sys
 from configparser import ConfigParser
 from pathlib import Path
+from typing import List
 
 import pytest
 
@@ -15,6 +16,12 @@ def check_output(*args, cwd=None) -> str:
         )
     except subprocess.CalledProcessError as e:
         raise ValueError(e.output)
+
+
+def check_branches(module: str) -> List[str]:
+    return [
+        x[2:] for x in str(__main__.git("branch", "--list", cwd=module)).split("\n")
+    ]
 
 
 def test_cli_version():
@@ -112,10 +119,7 @@ Instructions on how to develop this module are in CONTRIBUTING.rst
         in str(excinfo.value)
     )
 
-    branches = [
-        x[2:]
-        for x in str(__main__.git("branch", "--list", cwd=str(module))).split("\n")
-    ]
+    branches = check_branches(str(module))
     assert MERGE_BRANCH in branches
     output = check_output(
         sys.executable,
@@ -126,3 +130,5 @@ Instructions on how to develop this module are in CONTRIBUTING.rst
         cwd=str(module),
     )
     assert output.strip("\n") == f"{MERGE_BRANCH} deleted from existing repo"
+    branches = check_branches(str(module))
+    assert MERGE_BRANCH not in branches
