@@ -10,3 +10,4 @@ Practical step-by-step guides for the more experienced user.
 
     how-to/existing
     how-to/update
+    how-to/excalidraw

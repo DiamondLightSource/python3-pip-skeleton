@@ -41,8 +41,8 @@ def test_new_module(tmp_path: Path):
 
     conf = ConfigParser()
     conf.read(module / "setup.cfg")
-    assert conf["metadata"]["author"] == "Firstname Lastname"
-    assert conf["metadata"]["author_email"] == "me@myaddress.com"
+    assert conf["metadata"]["author"] == '"Firstname Lastname"'
+    assert conf["metadata"]["author_email"] == '"me@myaddress.com"'
     versiongit_lines = [
         line
         for line in (module / "docs" / "reference" / "api.rst").read_text().splitlines()
