@@ -3,7 +3,7 @@ import shutil
 from argparse import ArgumentParser
 from configparser import ConfigParser
 from pathlib import Path
-from subprocess import STDOUT, CalledProcessError, check_output
+from subprocess import STDOUT, CalledProcessError, call, check_output
 from tempfile import TemporaryDirectory
 from typing import List
 
@@ -27,6 +27,7 @@ IGNORE_RANGES = {
         "https://github.com/dls-controls/versiongit",
     ),
 }
+SKELETON_ROOT_COMMIT = "ededf00035e6ccfac78946213009c1ecd7c110a9"
 
 
 def git(*args, cwd=None) -> str:
@@ -139,6 +140,25 @@ def validate_package(args) -> str:
     return package
 
 
+def verify_not_adopted(root: Path):
+    """Verify that module has not already adopted skeleton"""
+
+    # This call does not print anything - the return code is 0 if it is an ancestor
+    not_adopted = call(  # 0 -> adopted and 1 -> not adopted, so invert here
+        [
+            "git",
+            "-C",
+            f"{root}",
+            "merge-base",
+            "--is-ancestor",
+            SKELETON_ROOT_COMMIT,
+            "HEAD",
+        ]
+    )
+
+    assert not_adopted, f"Package {root} has already adopted skeleton"
+
+
 def new(args):
     path: Path = args.path
 
@@ -175,6 +195,8 @@ def existing(args):
     package = validate_package(args)
     file_path: Path = path / "setup.cfg"
     assert file_path.is_file(), "Expected a setup.cfg file in the directory."
+    verify_not_adopted(args.path)
+
     conf = ConfigParser()
     conf.read(path / "setup.cfg")
     assert "metadata" in conf, cfg_issue

@@ -125,3 +125,23 @@ Instructions on how to develop this module are in CONTRIBUTING.rst
     assert output.strip("\n") == f"{MERGE_BRANCH} deleted from existing repo"
     branches = __main__.list_branches(module)
     assert MERGE_BRANCH not in branches
+
+
+def test_existing_module_already_adopted(tmp_path: Path):
+    module = tmp_path / "scanspec"
+    __main__.git(
+        "clone",
+        "--branch",
+        "0.5.4",  # dls-python3-skeleton was adopted in this release
+        "https://github.com/dls-controls/scanspec",
+        str(module),
+    )
+    with pytest.raises(Exception) as excinfo:
+        check_output(
+            sys.executable,
+            "-m",
+            "dls_python3_skeleton",
+            "existing",
+            str(module),
+        )
+    assert "already adopted skeleton" in str(excinfo.value)
