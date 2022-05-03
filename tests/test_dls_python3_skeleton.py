@@ -1,6 +1,7 @@
 import subprocess
 import sys
 from configparser import ConfigParser
+from os import makedirs
 from pathlib import Path
 
 import pytest
@@ -66,6 +67,25 @@ def test_new_module(tmp_path: Path):
     assert "Please change ./docs/reference/api.rst" in out
     assert "Please delete ./docs/how-to/accomplish-a-task.rst" in out
     assert "Please delete ./docs/explanations/why-is-something-so.rst" in out
+
+
+def test_new_module_existing_dir(tmp_path: Path):
+    module = tmp_path / "my-module"
+    makedirs(module / "existing_dir")
+
+    with pytest.raises(Exception) as excinfo:
+        check_output(
+            sys.executable,
+            "-m",
+            "dls_python3_skeleton",
+            "new",
+            "--org=myorg",
+            "--package=my_module",
+            "--full-name=Firstname Lastname",
+            "--email=me@myaddress.com",
+            str(module),
+        )
+    assert "to not exist, or be an empty dir" in str(excinfo.value)
 
 
 def test_existing_module(tmp_path: Path):
