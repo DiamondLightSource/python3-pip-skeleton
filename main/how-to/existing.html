@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to adopt the skeleton in an existing repo &mdash; dls-python3-skeleton 1.4+35.gffa7044 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/dls-favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="How to update to the latest skeleton structure" href="update.html" />
+    <link rel="prev" title="Creating a new repo from the skeleton" href="../tutorials/new.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: rgb(7, 43, 93)" >
+            <a href="../index.html" class="icon icon-home"> dls-python3-skeleton
+            <img src="../_static/dls-logo.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                master
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/new.html">Creating a new repo from the skeleton</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-to Guides</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">How to adopt the skeleton in an existing repo</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#example-merge">Example merge</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="update.html">How to update to the latest skeleton structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="excalidraw.html">How to embed Excalidraw diagrams</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Explanations</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../explanations/why-use-skeleton.html">Why use a skeleton structure?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../explanations/why-src.html">Why use a source directory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../explanations/why-pre-commit.html">Why use pre-commit</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/dls-controls/dls-python3-skeleton/releases">Releases</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: rgb(7, 43, 93)" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">dls-python3-skeleton</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>How to adopt the skeleton in an existing repo</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/how-to/existing.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="how-to-adopt-the-skeleton-in-an-existing-repo">
+<h1>How to adopt the skeleton in an existing repo<a class="headerlink" href="#how-to-adopt-the-skeleton-in-an-existing-repo" title="Permalink to this headline"></a></h1>
+<p>If you have an existing repo and would like to adopt the skeleton structure
+then you can use the commandline tool to merge the skeleton into your repo:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dls</span><span class="o">-</span><span class="n">python3</span><span class="o">-</span><span class="n">skeleton</span> <span class="n">existing</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">existing</span><span class="o">/</span><span class="n">repo</span>
+</pre></div>
+</div>
+<p>This will:</p>
+<ul class="simple">
+<li><p>Take the repo name from the last element of the path</p></li>
+<li><p>Take the package name from the repo name unless overridden by <code class="docutils literal notranslate"><span class="pre">--package</span></code></p></li>
+<li><p>Clone the existing repo in /tmp</p></li>
+<li><p>Create a new orphan merge branch from the skeleton repo</p></li>
+<li><p>Create a single commit that modifies the skeleton with the repo and package name</p></li>
+<li><p>Push that merge branch back to the existing repo</p></li>
+<li><p>Merge with the currently checked out branch, leaving you to fix the conflicts</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you installed the commandline tool in a virtualenv, be sure to run
+<code class="docutils literal notranslate"><span class="pre">deactivate</span></code> when you have finished running it, otherwise <code class="docutils literal notranslate"><span class="pre">pipenv</span>
+<span class="pre">install</span></code> will use your virtualenv rather than making its own</p>
+</div>
+<section id="example-merge">
+<h2>Example merge<a class="headerlink" href="#example-merge" title="Permalink to this headline"></a></h2>
+<p>As an example, <a class="reference external" href="https://github.com/dls-controls/scanspec/pull/46">scanspec #46</a> shows the what this
+adoption looks like. The commandline tool was run on the existing repo:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd /path/to/scanspec
+$ git checkout -b adopt-skeleton
+Switched to a new branch &#39;adopt-skeleton&#39;
+$ dls-python3-skeleton existing .
+Auto-merging src/scanspec/__main__.py
+CONFLICT (add/add): Merge conflict in src/scanspec/__main__.py
+Auto-merging src/scanspec/__init__.py
+CONFLICT (add/add): Merge conflict in src/scanspec/__init__.py
+Auto-merging setup.cfg
+CONFLICT (add/add): Merge conflict in setup.cfg
+Auto-merging pyproject.toml
+CONFLICT (add/add): Merge conflict in pyproject.toml
+Auto-merging docs/tutorials/installation.rst
+CONFLICT (add/add): Merge conflict in docs/tutorials/installation.rst
+Auto-merging docs/reference/api.rst
+CONFLICT (add/add): Merge conflict in docs/reference/api.rst
+Auto-merging docs/index.rst
+CONFLICT (add/add): Merge conflict in docs/index.rst
+Auto-merging docs/conf.py
+CONFLICT (add/add): Merge conflict in docs/conf.py
+Auto-merging docs/_static/theme_overrides.css
+CONFLICT (add/add): Merge conflict in docs/_static/theme_overrides.css
+Auto-merging README.rst
+CONFLICT (add/add): Merge conflict in README.rst
+Auto-merging Pipfile
+CONFLICT (add/add): Merge conflict in Pipfile
+Auto-merging CONTRIBUTING.rst
+CONFLICT (add/add): Merge conflict in CONTRIBUTING.rst
+Auto-merging CHANGELOG.rst
+CONFLICT (add/add): Merge conflict in CHANGELOG.rst
+Auto-merging .vscode/settings.json
+CONFLICT (add/add): Merge conflict in .vscode/settings.json
+Auto-merging .vscode/launch.json
+CONFLICT (add/add): Merge conflict in .vscode/launch.json
+Auto-merging .github/workflows/docs.yml
+CONFLICT (add/add): Merge conflict in .github/workflows/docs.yml
+Auto-merging .github/workflows/code.yml
+CONFLICT (add/add): Merge conflict in .github/workflows/code.yml
+Auto-merging .gitattributes
+CONFLICT (add/add): Merge conflict in .gitattributes
+Automatic merge failed; fix conflicts and then commit the result.
+
+Please fix the conflicts above, then you can run:
+    git branch -d skeleton-merge-branch
+Instructions on how to develop this module are in CONTRIBUTING.rst
+</pre></div>
+</div>
+<p>First of the boilerplate files were removed:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git rm src/scanspec/hello.py docs/images/dls-logo.svg docs/images/dls-favicon.ico docs/how-to/accomplish-a-task.rst docs/explanations/why-is-something-so.rst -f
+rm &#39;docs/explanations/why-is-something-so.rst&#39;
+rm &#39;docs/how-to/accomplish-a-task.rst&#39;
+rm &#39;docs/images/dls-favicon.ico&#39;
+rm &#39;docs/images/dls-logo.svg&#39;
+rm &#39;src/scanspec/hello.py&#39;
+</pre></div>
+</div>
+<p>Then the merge conflicts were fixed, and the pipenv dependencies updated:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pipenv --rm
+$ rm Pipfile.lock
+$ pipenv install --dev
+</pre></div>
+</div>
+<p>The tests and docs were then run and checked:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pipenv run tests
+$ pipenv run docs
+</pre></div>
+</div>
+<p>Finally the results were committed, pushed, merged to master:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git commit
+$ git push github adopt-skeleton
+</pre></div>
+</div>
+<img alt="../_images/git_merge.png" src="../_images/git_merge.png" />
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../tutorials/new.html" class="btn btn-neutral float-left" title="Creating a new repo from the skeleton" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="update.html" class="btn btn-neutral float-right" title="How to update to the latest skeleton structure" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+   
+  <div id="other-versions-div" class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions" style="visibility: hidden">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Other Versions</span>
+      master
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl id="other-versions-dl"/>
+    </div>
+  </div>
+  <script>
+    function addVersion(name) {
+      var dd = document.createElement("dd");
+      var a = document.createElement("a");
+      a.href = "../../" + name;
+      a.innerText = name;
+      dd.appendChild(a);
+      document.getElementById('other-versions-dl').appendChild(dd);
+    }
+    // Get versions.txt and add a version for each line
+    fetch("../../versions.txt").then(response => {
+      if (response.ok) {
+        document.getElementById('other-versions-div').style.visibility = "visible";
+        return response.text().then(text => text.split(/\r?\n/).forEach(addVersion))
+      }
+    });
+  </script>
+
+
+</body>
+</html>
