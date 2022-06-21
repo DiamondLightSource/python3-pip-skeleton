@@ -16,11 +16,6 @@ This will:
 - Push that merge branch back to the existing repo
 - Merge with the currently checked out branch, leaving you to fix the conflicts
 
-.. note::
-
-    If you installed the commandline tool in a virtualenv, be sure to run
-    ``deactivate`` when you have finished running it, otherwise ``pipenv
-    install`` will use your virtualenv rather than making its own
 
 Example merge
 -------------
@@ -84,18 +79,15 @@ First of the boilerplate files were removed::
     rm 'docs/images/dls-logo.svg'
     rm 'src/scanspec/hello.py'
 
-Then the merge conflicts were fixed, and the pipenv dependencies updated::
+Then the merge conflicts were fixed, and the dependencies updated::
 
-    $ pipenv --rm
-    $ rm Pipfile.lock
-    $ pipenv install --dev
+    $ pip install -e .[dev]
 
 The tests and docs were then run and checked::
 
-    $ pipenv run tests
-    $ pipenv run docs
+    $ tox -p
 
-Finally the results were committed, pushed, merged to master::
+Finally the results were committed, pushed, merged to main::
 
     $ git commit
     $ git push github adopt-skeleton

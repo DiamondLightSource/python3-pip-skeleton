@@ -19,10 +19,10 @@ This is tested in CI in the following way:
 - ``wheel`` job creates a wheel, then installs it in an isolated environment and
   runs the cli. This checks ``install_requirements`` are sufficient to run the
   cli.
-- ``test`` job with ``pipenv: deploy`` does an `editable install`_ of the
+- ``test`` job with ``lock: true`` does an `editable install`_ of the
   package. This is the mode that is used at development time, as modifications
   to sources can be tested without reinstalling.
-- ``test`` job with ``pipenv: skip-lock`` does a regular install, which
+- ``test`` job with ``lock: false`` does a regular install, which
   checks that all files needed for the tests are packaged with the distribution.
 
 .. _editable install: https://pip.pypa.io/en/stable/cli/pip_install/#editable-installs

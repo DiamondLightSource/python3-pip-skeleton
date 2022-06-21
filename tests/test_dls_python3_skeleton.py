@@ -54,11 +54,12 @@ def test_new_module(tmp_path: Path):
         in versiongit_lines
     )
     assert (module / "src" / "my_module").is_dir()
-    assert check_output("git", "branch", cwd=module).strip() == "* master"
-    check_output("pipenv", "install", "--dev", cwd=module)
-    check_output("pipenv", "run", "docs", cwd=module)
+    assert check_output("git", "branch", cwd=module).strip() == "* main"
+    check_output("virtualenv", ".venv", cwd=module)
+    check_output(".venv/bin/pip", "install", ".[dev]", cwd=module)
+    check_output(".venv/bin/tox", "-e", "docs", cwd=module)
     with pytest.raises(ValueError) as ctx:
-        check_output("pipenv", "run", "tests", cwd=module)
+        check_output(".venv/bin/pytest", "tests", cwd=module)
     out = ctx.value.args[0]
     print(out)
     assert "6 failed, 5 passed" in out

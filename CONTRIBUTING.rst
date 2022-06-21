@@ -39,7 +39,7 @@ on your workstation as follows::
     $ git clone git://github.com/epics-containers/python3-pip-skeleton.git
     $ cd python3-pip-skeleton
     $ virtualenv .venv
-    $ source .venv/bin/activate
+    $ s
     $ pip install -e .[dev]
     $ tox -p 
 

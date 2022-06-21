@@ -13,24 +13,20 @@ This will:
 - Create a new repo at the requested path, forked from the skeleton repo
 - Create a single commit that modifies the skeleton with the repo and package name
 
-.. note::
-
-    If you installed the commandline tool in a virtualenv, be sure to run
-    ``deactivate`` when you have finished running it, otherwise ``pipenv
-    install`` will use your virtualenv rather than making its own
 
 Getting started with your new repo
 ----------------------------------
 
-Your new repo has a workflow based on pipenv. The first thing to do is to use
-pipenv to install packages in a virtual environment::
+Your new repo has a workflow based on pip. The first thing to do is to use
+pip to install packages in a virtual environment::
 
-    pipenv install --dev
+    virtual .venv
+    source .venv/bin/activate
+    pip install -e .[dev]
 
-You can then use the ``pipenv run`` command to run shell commands within this
-virtual environment. For instance::
+You can then run any entry points declared in setup.cfg e.g.::
 
-    pipenv run python
+    python3-pip-skeleton --version
 
 will run the python interpreter with access to all the packages you need to
 develop your repo.
@@ -38,11 +34,13 @@ develop your repo.
 Running the tests
 -----------------
 
-There are also some extra convenience scripts that ``pipenv run`` knows about::
+There are also some extra convenience scripts provided via tox::
 
-    pipenv run tests
+    tox -p
 
-will run ``pytest`` to find all the unit tests and run them. The first time you
+Will run in parallel all of the checks that CI performs.
+
+It will run ``pytest`` to find all the unit tests and run them. The first time you
 run this, there will be some failing tests::
 
     ============================================================================ short test summary info ============================================================================
@@ -71,7 +69,7 @@ Building the docs
 
 There is also a convenience script for building the docs::
 
-    pipenv run docs
+    tox -e docs
 
 You can then view the docs output with a web browse::
 
@@ -84,7 +82,7 @@ To push the resulting repo to GitHub, first create an empty repo from the GitHub
 website, then run the following::
 
     git remote add $(cat .gitremotes)
-    git push -u github master
+    git push -u github main
 
 This will then run the continuous integration (CI) jobs, which run the tests and
 build the docs using the commands above.

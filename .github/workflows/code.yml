@@ -113,10 +113,6 @@ jobs:
       - name: Run tests
         run: pytest tests
 
-      - name: Create requirements_dev.txt
-        run: |
-          pip freeze --exclude-editable > requirements_dev.txt
-
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2
         with:

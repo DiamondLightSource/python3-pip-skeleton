@@ -17,11 +17,13 @@ Releases       https://github.com/epics-containers/python3-pip-skeleton/releases
 
 It integrates the following tools:
 
-- Pipenv for version management
-- Pre-commit with black, flake8, isort and mypy for static analysis
-- Pytest for code and coverage
+- pip and setuptools_scm for version management
+- Pre-commit with black, flake8 and isort for static analysis
+- Pytest for tests and code git@github.com:dls-controls/dls-python3-skeleton.gitcoverage
 - Sphinx for tutorials, how-to guides, explanations and reference documentation
 - GitHub Actions for code and docs CI and deployment to PyPI and GitHub Pages
+- tox -p: runs pre-commit, pytest, mypy and make docs
+  - which verifies all the things that CI does
 - If you use VSCode, it will run black, flake8, isort and mypy on save
 
 The ``skeleton`` branch of this module contains the source code that can be
