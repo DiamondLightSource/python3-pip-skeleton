@@ -50,7 +50,7 @@ def test_new_module(tmp_path: Path):
         if "versiongit" in line
     ]
     assert (
-        "    Version number as calculated by https://github.com/dls-controls/versiongit"
+        "    Version number as calculated by https://github.com/epics-containers/versiongit"
         in versiongit_lines
     )
     assert (module / "src" / "my_module").is_dir()
@@ -96,7 +96,7 @@ def test_existing_module(tmp_path: Path):
         "1",
         "--branch",
         "0.5.3",
-        "https://github.com/dls-controls/scanspec",
+        "https://github.com/epics-containers/scanspec",
         str(module),
     )
     output = check_output(
@@ -153,7 +153,7 @@ def test_existing_module_already_adopted(tmp_path: Path):
         "clone",
         "--branch",
         "0.5.4",  # dls-python3-skeleton was adopted in this release
-        "https://github.com/dls-controls/scanspec",
+        "https://github.com/epics-containers/scanspec",
         str(module),
     )
     with pytest.raises(Exception) as excinfo:

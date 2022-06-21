@@ -12,7 +12,7 @@ from . import __version__
 __all__ = ["main"]
 
 # The source of the skeleton module to pull from
-SKELETON = "https://github.com/dls-controls/dls-python3-skeleton"
+SKELETON = "https://github.com/epics-containers/dls-python3-skeleton"
 # The name of the merge branch that will be created
 MERGE_BRANCH = "skeleton-merge-branch"
 # Extensions to change
@@ -24,7 +24,7 @@ IGNORE_RANGES = {
     "CONTRIBUTING.rst": ("\nUpdating the tools\n", None),
     "api.rst": (
         "Version number as calculated by",
-        "https://github.com/dls-controls/versiongit",
+        "https://github.com/epics-containers/versiongit",
     ),
 }
 SKELETON_ROOT_COMMIT = "ededf00035e6ccfac78946213009c1ecd7c110a9"
@@ -65,7 +65,7 @@ def merge_skeleton(
     repo = path.name
 
     def replace_text(text: str) -> str:
-        text = text.replace("dls-controls", org)
+        text = text.replace("epics-containers", org)
         text = text.replace("dls-python3-skeleton", repo)
         text = text.replace("python3_pip_skeleton", package)
         text = text.replace("Firstname Lastname", full_name)
@@ -234,7 +234,7 @@ def main(args=None):
     sub.set_defaults(func=new)
     sub.add_argument("path", type=Path, help="Path to new repo to create")
     sub.add_argument(
-        "--org", default="dls-controls", help="GitHub org, default dls-controls"
+        "--org", default="epics-containers", help="GitHub org, default epics-containers"
     )
     sub.add_argument(
         "--package", default=None, help="Package name, defaults to directory name"
@@ -250,7 +250,7 @@ def main(args=None):
     sub.set_defaults(func=existing)
     sub.add_argument("path", type=Path, help="Path to new repo to existing repo")
     sub.add_argument(
-        "--org", default="dls-controls", help="GitHub org, default dls-controls"
+        "--org", default="epics-containers", help="GitHub org, default epics-containers"
     )
     sub.add_argument(
         "--package", default=None, help="Package name, defaults to directory name"
