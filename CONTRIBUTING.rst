@@ -15,7 +15,8 @@ Running the tests
 -----------------
 
 Both the ``skeleton`` and ``main`` branch have different tests, but
-the process to run them is the same::
+the process to run them is the same. You can run in a container using the 
+supplied devcontainer or you can run them locally.
 
 To run in a container
 ~~~~~~~~~~~~~~~~~~~~~
@@ -45,7 +46,7 @@ on your workstation as follows::
 Checks
 ~~~~~~
 
-In both cases tox -p runs in parallel the following checks:
+In both cases tox -p runs in parallel the following checks.
 
   - Build Spinx Documentation
   - run pytest on all tests in ./tests
