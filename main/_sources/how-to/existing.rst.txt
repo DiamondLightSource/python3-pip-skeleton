@@ -26,7 +26,7 @@ Example merge
 -------------
 
 As an example, `scanspec #46
-<https://github.com/dls-controls/scanspec/pull/46>`_ shows the what this
+<https://github.com/epics-containers/scanspec/pull/46>`_ shows the what this
 adoption looks like. The commandline tool was run on the existing repo::
 
     $ cd /path/to/scanspec
