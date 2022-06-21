@@ -1,0 +1,3 @@
+[console_scripts]
+python3-pip-skeleton = python3_pip_skeleton.__main__:main
+
