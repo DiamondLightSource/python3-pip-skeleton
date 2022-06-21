@@ -6,9 +6,9 @@ structure in an existing repo) some time ago, there may be some changes to the
 structure that you could pick up. You can optionally check what differences
 these changes make to the files by doing::
 
-    $ git fetch https://github.com/epics-containers/dls-python3-skeleton skeleton
+    $ git fetch https://github.com/epics-containers/python3-pip-skeleton skeleton
     $ git diff ...FETCH_HEAD
 
 To merge the changes in do::
 
-    $ git pull https://github.com/epics-containers/dls-python3-skeleton skeleton
+    $ git pull https://github.com/epics-containers/python3-pip-skeleton skeleton

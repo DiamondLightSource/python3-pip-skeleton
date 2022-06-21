@@ -4,7 +4,7 @@ Creating a new repo from the skeleton
 Once you have followed the `installation` tutorial, you can use the
 commandline tool to make a new repo that inherits the skeleton::
 
-    dls-python3-skeleton new /path/to/be/created
+    python3-pip-skeleton new /path/to/be/created
 
 This will:
 

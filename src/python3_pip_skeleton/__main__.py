@@ -12,7 +12,7 @@ from . import __version__
 __all__ = ["main"]
 
 # The source of the skeleton module to pull from
-SKELETON = "https://github.com/epics-containers/dls-python3-skeleton"
+SKELETON = "https://github.com/epics-containers/python3-pip-skeleton"
 # The name of the merge branch that will be created
 MERGE_BRANCH = "skeleton-merge-branch"
 # Extensions to change
@@ -66,7 +66,7 @@ def merge_skeleton(
 
     def replace_text(text: str) -> str:
         text = text.replace("epics-containers", org)
-        text = text.replace("dls-python3-skeleton", repo)
+        text = text.replace("python3-pip-skeleton", repo)
         text = text.replace("python3_pip_skeleton", package)
         text = text.replace("Firstname Lastname", full_name)
         text = text.replace("email@address.com", email)
@@ -77,7 +77,7 @@ def merge_skeleton(
     if MERGE_BRANCH in branches:
         raise Exception(
             f"{MERGE_BRANCH} already exists. \
-                Please run 'dls-python3-skeleton clean' to remove it."
+                Please run 'python3-pip-skeleton clean' to remove it."
         )
     with GitTemporaryDirectory() as git_tmp:
         # Clone existing repo into tmp so we don't mess up if we fail
@@ -120,7 +120,7 @@ def merge_skeleton(
                     + replace_text(text[end_ignore:])
                 )
         # Commit what we have and push to the original repo
-        git_tmp("commit", "-a", "-m", f"Rename dls-python3-skeleton -> {repo}")
+        git_tmp("commit", "-a", "-m", f"Rename python3-pip-skeleton -> {repo}")
         git_tmp("push", "origin", MERGE_BRANCH)
     try:
         git("merge", MERGE_BRANCH, "--allow-unrelated-histories", cwd=path)

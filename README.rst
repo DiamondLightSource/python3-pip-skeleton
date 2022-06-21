@@ -19,7 +19,7 @@ It integrates the following tools:
 
 - pip and setuptools_scm for version management
 - Pre-commit with black, flake8 and isort for static analysis
-- Pytest for tests and code git@github.com:dls-controls/dls-python3-skeleton.gitcoverage
+- Pytest for tests and code git@github.com:dls-controls/python3-pip-skeleton.gitcoverage
 - Sphinx for tutorials, how-to guides, explanations and reference documentation
 - GitHub Actions for code and docs CI and deployment to PyPI and GitHub Pages
 - tox -p: runs pre-commit, pytest, mypy and make docs

@@ -49,10 +49,7 @@ def test_new_module(tmp_path: Path):
         for line in (module / "docs" / "reference" / "api.rst").read_text().splitlines()
         if "versiongit" in line
     ]
-    assert (
-        "    Version number as calculated by https://github.com/epics-containers/versiongit"
-        in versiongit_lines
-    )
+    assert "    Version number as calculated by setuptools_scm" in versiongit_lines
     assert (module / "src" / "my_module").is_dir()
     assert check_output("git", "branch", cwd=module).strip() == "* main"
     check_output("virtualenv", ".venv", cwd=module)
@@ -129,7 +126,7 @@ Instructions on how to develop this module are in CONTRIBUTING.rst
         )
     assert (
         f"{MERGE_BRANCH} already exists. \
-                Please run 'dls-python3-skeleton clean' to remove it."
+                Please run 'python3-pip-skeleton clean' to remove it."
         in str(excinfo.value)
     )
 
@@ -154,7 +151,7 @@ def test_existing_module_already_adopted(tmp_path: Path):
         "clone",
         "--branch",
         "0.5.4",  # dls-python3-skeleton was adopted in this release
-        "https://github.com/epics-containers/scanspec",
+        "https://github.com/dls-controls/scanspec",
         str(module),
     )
     with pytest.raises(Exception) as excinfo:

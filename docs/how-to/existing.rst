@@ -4,7 +4,7 @@ How to adopt the skeleton in an existing repo
 If you have an existing repo and would like to adopt the skeleton structure
 then you can use the commandline tool to merge the skeleton into your repo::
 
-    dls-python3-skeleton existing /path/to/existing/repo
+    python3-pip-skeleton existing /path/to/existing/repo
 
 This will:
 
@@ -27,7 +27,7 @@ adoption looks like. The commandline tool was run on the existing repo::
     $ cd /path/to/scanspec
     $ git checkout -b adopt-skeleton
     Switched to a new branch 'adopt-skeleton'
-    $ dls-python3-skeleton existing .
+    $ python3-pip-skeleton existing .
     Auto-merging src/scanspec/__main__.py
     CONFLICT (add/add): Merge conflict in src/scanspec/__main__.py
     Auto-merging src/scanspec/__init__.py
