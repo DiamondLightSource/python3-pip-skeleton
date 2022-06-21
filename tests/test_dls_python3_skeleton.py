@@ -104,7 +104,7 @@ def test_existing_module(tmp_path: Path):
         "1",
         "--branch",
         "0.5.3",
-        "https://github.com/epics-containers/scanspec",
+        "https://github.com/dls-controls/scanspec",
         str(module),
     )
     output = check_output(
