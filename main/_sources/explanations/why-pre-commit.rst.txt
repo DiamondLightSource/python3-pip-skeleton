@@ -28,7 +28,7 @@ under pytest that had a plugin, and isort under flake8:
       }
     }
 
-This had the advantage that a ``pipenv run tests`` run in CI would catch and
+This had the advantage that a ``pytest tests`` run in CI would catch and
 report all test failures, but made each run take longer than it needed to. Also,
 flake8 states that it `does not have a public, stable, Python API
 <https://flake8.pycqa.org/en/latest/user/python-api.html>`_ so did not
@@ -56,7 +56,7 @@ for those using other editors and for CI another solution was needed. Enter
 commit`` time on just the files that have changed, as well as on all tracked
 files by CI. All that is needed is a one time install of the git commit hook::
 
-  $ pipenv run pre-commit install
+  $ pre-commit install
 
 The graph now looks like:
 

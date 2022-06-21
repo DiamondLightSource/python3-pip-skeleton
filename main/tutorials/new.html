@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Creating a new repo from the skeleton &mdash; python3-pip-skeleton 1.5.dev39+g6cc3e60 documentation</title>
+  <title>Creating a new repo from the skeleton &mdash; python3-pip-skeleton 1.5.dev41+g83ac931 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
@@ -104,7 +104,7 @@
 <h1>Creating a new repo from the skeleton<a class="headerlink" href="#creating-a-new-repo-from-the-skeleton" title="Permalink to this heading"></a></h1>
 <p>Once you have followed the <a class="reference internal" href="installation.html"><span class="doc">Installation</span></a> tutorial, you can use the
 commandline tool to make a new repo that inherits the skeleton:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dls</span><span class="o">-</span><span class="n">python3</span><span class="o">-</span><span class="n">skeleton</span> <span class="n">new</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">be</span><span class="o">/</span><span class="n">created</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span><span class="o">-</span><span class="n">pip</span><span class="o">-</span><span class="n">skeleton</span> <span class="n">new</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">be</span><span class="o">/</span><span class="n">created</span>
 </pre></div>
 </div>
 <p>This will:</p>
@@ -114,22 +114,17 @@ commandline tool to make a new repo that inherits the skeleton:</p>
 <li><p>Create a new repo at the requested path, forked from the skeleton repo</p></li>
 <li><p>Create a single commit that modifies the skeleton with the repo and package name</p></li>
 </ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If you installed the commandline tool in a virtualenv, be sure to run
-<code class="docutils literal notranslate"><span class="pre">deactivate</span></code> when you have finished running it, otherwise <code class="docutils literal notranslate"><span class="pre">pipenv</span>
-<span class="pre">install</span></code> will use your virtualenv rather than making its own</p>
-</div>
 <section id="getting-started-with-your-new-repo">
 <h2>Getting started with your new repo<a class="headerlink" href="#getting-started-with-your-new-repo" title="Permalink to this heading"></a></h2>
-<p>Your new repo has a workflow based on pipenv. The first thing to do is to use
-pipenv to install packages in a virtual environment:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pipenv</span> <span class="n">install</span> <span class="o">--</span><span class="n">dev</span>
+<p>Your new repo has a workflow based on pip. The first thing to do is to use
+pip to install packages in a virtual environment:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">virtual</span> <span class="o">.</span><span class="n">venv</span>
+<span class="n">source</span> <span class="o">.</span><span class="n">venv</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="o">.</span><span class="p">[</span><span class="n">dev</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>You can then use the <code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">run</span></code> command to run shell commands within this
-virtual environment. For instance:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pipenv</span> <span class="n">run</span> <span class="n">python</span>
+<p>You can then run any entry points declared in setup.cfg e.g.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span><span class="o">-</span><span class="n">pip</span><span class="o">-</span><span class="n">skeleton</span> <span class="o">--</span><span class="n">version</span>
 </pre></div>
 </div>
 <p>will run the python interpreter with access to all the packages you need to
@@ -137,11 +132,12 @@ develop your repo.</p>
 </section>
 <section id="running-the-tests">
 <h2>Running the tests<a class="headerlink" href="#running-the-tests" title="Permalink to this heading"></a></h2>
-<p>There are also some extra convenience scripts that <code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">run</span></code> knows about:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pipenv</span> <span class="n">run</span> <span class="n">tests</span>
+<p>There are also some extra convenience scripts provided via tox:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tox</span> <span class="o">-</span><span class="n">p</span>
 </pre></div>
 </div>
-<p>will run <code class="docutils literal notranslate"><span class="pre">pytest</span></code> to find all the unit tests and run them. The first time you
+<p>Will run in parallel all of the checks that CI performs.</p>
+<p>It will run <code class="docutils literal notranslate"><span class="pre">pytest</span></code> to find all the unit tests and run them. The first time you
 run this, there will be some failing tests:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">============================================================================</span> <span class="n">short</span> <span class="n">test</span> <span class="n">summary</span> <span class="n">info</span> <span class="o">============================================================================</span>
 <span class="n">FAILED</span> <span class="n">tests</span><span class="o">/</span><span class="n">test_boilerplate_removed</span><span class="o">.</span><span class="n">py</span><span class="p">::</span><span class="n">test_module_description</span> <span class="o">-</span> <span class="ne">AssertionError</span><span class="p">:</span> <span class="n">Please</span> <span class="n">change</span> <span class="n">description</span> <span class="ow">in</span> <span class="o">./</span><span class="n">setup</span><span class="o">.</span><span class="n">cfg</span> <span class="n">to</span> <span class="n">be</span> <span class="n">a</span> <span class="n">one</span> <span class="n">line</span> <span class="n">description</span> <span class="n">of</span> <span class="n">your</span> <span class="n">module</span>
@@ -167,7 +163,7 @@ fail” by adding a decorator to the relevant function. For example:</p>
 <section id="building-the-docs">
 <h2>Building the docs<a class="headerlink" href="#building-the-docs" title="Permalink to this heading"></a></h2>
 <p>There is also a convenience script for building the docs:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pipenv</span> <span class="n">run</span> <span class="n">docs</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tox</span> <span class="o">-</span><span class="n">e</span> <span class="n">docs</span>
 </pre></div>
 </div>
 <p>You can then view the docs output with a web browse:</p>
@@ -180,7 +176,7 @@ fail” by adding a decorator to the relevant function. For example:</p>
 <p>To push the resulting repo to GitHub, first create an empty repo from the GitHub
 website, then run the following:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>git remote add $(cat .gitremotes)
-git push -u github master
+git push -u github main
 </pre></div>
 </div>
 <p>This will then run the continuous integration (CI) jobs, which run the tests and

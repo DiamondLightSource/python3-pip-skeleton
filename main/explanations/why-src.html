@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Why use a source directory &mdash; python3-pip-skeleton 1.5.dev39+g6cc3e60 documentation</title>
+  <title>Why use a source directory &mdash; python3-pip-skeleton 1.5.dev41+g83ac931 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
@@ -108,10 +108,10 @@ package and not the source directory, testing for packaging bugs.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">wheel</span></code> job creates a wheel, then installs it in an isolated environment and
 runs the cli. This checks <code class="docutils literal notranslate"><span class="pre">install_requirements</span></code> are sufficient to run the
 cli.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">test</span></code> job with <code class="docutils literal notranslate"><span class="pre">pipenv:</span> <span class="pre">deploy</span></code> does an <a class="reference external" href="https://pip.pypa.io/en/stable/cli/pip_install/#editable-installs">editable install</a> of the
+<li><p><code class="docutils literal notranslate"><span class="pre">test</span></code> job with <code class="docutils literal notranslate"><span class="pre">lock:</span> <span class="pre">true</span></code> does an <a class="reference external" href="https://pip.pypa.io/en/stable/cli/pip_install/#editable-installs">editable install</a> of the
 package. This is the mode that is used at development time, as modifications
 to sources can be tested without reinstalling.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">test</span></code> job with <code class="docutils literal notranslate"><span class="pre">pipenv:</span> <span class="pre">skip-lock</span></code> does a regular install, which
+<li><p><code class="docutils literal notranslate"><span class="pre">test</span></code> job with <code class="docutils literal notranslate"><span class="pre">lock:</span> <span class="pre">false</span></code> does a regular install, which
 checks that all files needed for the tests are packaged with the distribution.</p></li>
 </ul>
 </section>

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>python3-pip-skeleton &mdash; python3-pip-skeleton 1.5.dev39+g6cc3e60 documentation</title>
+  <title>python3-pip-skeleton &mdash; python3-pip-skeleton 1.5.dev41+g83ac931 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
@@ -120,11 +120,13 @@ Python projects.</p>
 </table>
 <p>It integrates the following tools:</p>
 <ul class="simple">
-<li><p>Pipenv for version management</p></li>
-<li><p>Pre-commit with black, flake8, isort and mypy for static analysis</p></li>
-<li><p>Pytest for code and coverage</p></li>
+<li><p>pip and setuptools_scm for version management</p></li>
+<li><p>Pre-commit with black, flake8 and isort for static analysis</p></li>
+<li><p>Pytest for tests and code <a class="reference external" href="mailto:git&#37;&#52;&#48;github&#46;com">git<span>&#64;</span>github<span>&#46;</span>com</a>:dls-controls/python3-pip-skeleton.gitcoverage</p></li>
 <li><p>Sphinx for tutorials, how-to guides, explanations and reference documentation</p></li>
 <li><p>GitHub Actions for code and docs CI and deployment to PyPI and GitHub Pages</p></li>
+<li><p>tox -p: runs pre-commit, pytest, mypy and make docs
+- which verifies all the things that CI does</p></li>
 <li><p>If you use VSCode, it will run black, flake8, isort and mypy on save</p></li>
 </ul>
 <p>The <code class="docutils literal notranslate"><span class="pre">skeleton</span></code> branch of this module contains the source code that can be
