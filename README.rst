@@ -1,4 +1,4 @@
-dls-python3-skeleton
+python3-pip-skeleton
 ===========================
 
 |code_ci| |docs_ci| |coverage| |pypi_version| |license|
@@ -9,10 +9,10 @@ which provides a means to keep tools and techniques in sync between multiple
 Python projects.
 
 ============== ==============================================================
-PyPI           ``pip install dls-python3-skeleton``
-Source code    https://github.com/dls-controls/dls-python3-skeleton
-Documentation  https://dls-controls.github.io/dls-python3-skeleton
-Releases       https://github.com/dls-controls/dls-python3-skeleton/releases
+PyPI           ``pip install python3-pip-skeleton``
+Source code    https://github.com/epics-containers/python3-pip-skeleton
+Documentation  https://epics-containers.github.io/python3-pip-skeleton
+Releases       https://github.com/epics-containers/python3-pip-skeleton/releases
 ============== ==============================================================
 
 It integrates the following tools:
@@ -29,29 +29,29 @@ merged into new or existing projects, and pulled from to keep them up to date.
 It can also serve as a working example for those who would prefer to
 cherry-pick.
 
-The ``master`` branch contains the
+The ``main`` branch contains the
 docs and a command line tool to ease the adoption of this skeleton into new::
 
-    dls-python3-skeleton new /path/to/be/created
+    python3-pip-skeleton new /path/to/be/created
 
 and existing projects::
 
-    dls-python3-skeleton existing /path/to/existing/repo
+    python3-pip-skeleton existing /path/to/existing/repo
 
-.. |code_ci| image:: https://github.com/dls-controls/dls-python3-skeleton/workflows/Code%20CI/badge.svg?branch=master
-    :target: https://github.com/dls-controls/dls-python3-skeleton/actions?query=workflow%3A%22Code+CI%22
+.. |code_ci| image:: https://github.com/epics-containers/python3-pip-skeleton/workflows/Code%20CI/badge.svg?branch=main
+    :target: https://github.com/epics-containers/python3-pip-skeleton/actions?query=workflow%3A%22Code+CI%22
     :alt: Code CI
 
-.. |docs_ci| image:: https://github.com/dls-controls/dls-python3-skeleton/workflows/Docs%20CI/badge.svg?branch=master
-    :target: https://github.com/dls-controls/dls-python3-skeleton/actions?query=workflow%3A%22Docs+CI%22
+.. |docs_ci| image:: https://github.com/epics-containers/python3-pip-skeleton/workflows/Docs%20CI/badge.svg?branch=main
+    :target: https://github.com/epics-containers/python3-pip-skeleton/actions?query=workflow%3A%22Docs+CI%22
     :alt: Docs CI
 
-.. |coverage| image:: https://codecov.io/gh/dls-controls/dls-python3-skeleton/branch/master/graph/badge.svg
-    :target: https://codecov.io/gh/dls-controls/dls-python3-skeleton
+.. |coverage| image:: https://codecov.io/gh/epics-containers/python3-pip-skeleton/branch/main/graph/badge.svg
+    :target: https://codecov.io/gh/epics-containers/python3-pip-skeleton
     :alt: Test Coverage
 
-.. |pypi_version| image:: https://img.shields.io/pypi/v/dls-python3-skeleton.svg
-    :target: https://pypi.org/project/dls-python3-skeleton
+.. |pypi_version| image:: https://img.shields.io/pypi/v/python3-pip-skeleton.svg
+    :target: https://pypi.org/project/python3-pip-skeleton
     :alt: Latest PyPI version
 
 .. |license| image:: https://img.shields.io/badge/License-Apache%202.0-blue.svg
@@ -62,4 +62,4 @@ and existing projects::
     Anything below this line is used when viewing README.rst and will be replaced
     when included in index.rst
 
-See https://dls-controls.github.io/dls-python3-skeleton for more detailed documentation.
+See https://epics-containers.github.io/python3-pip-skeleton for more detailed documentation.

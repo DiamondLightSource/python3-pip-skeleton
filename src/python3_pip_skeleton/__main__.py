@@ -67,7 +67,7 @@ def merge_skeleton(
     def replace_text(text: str) -> str:
         text = text.replace("dls-controls", org)
         text = text.replace("dls-python3-skeleton", repo)
-        text = text.replace("dls_python3_skeleton", package)
+        text = text.replace("python3_pip_skeleton", package)
         text = text.replace("Firstname Lastname", full_name)
         text = text.replace("email@address.com", email)
         return text
@@ -93,8 +93,8 @@ def merge_skeleton(
         # Merge in the skeleton commits
         git_tmp("pull", SKELETON, "skeleton")
         # Move things around
-        git_tmp("mv", "src/dls_python3_skeleton", f"src/{package}")
-        git_tmp("mv", "tests/test_dls_python3_skeleton.py", f"tests/test_{package}.py")
+        git_tmp("mv", "src/python3_pip_skeleton", f"src/{package}")
+        git_tmp("mv", "tests/test_python3_pip_skeleton.py", f"tests/test_{package}.py")
         # Change contents of all children known to git
         for relative_child in git_tmp("ls-files").splitlines():
             child = Path(git_tmp.name) / relative_child
@@ -266,5 +266,6 @@ def main(args=None):
     args.func(args)
 
 
+# test with: pipenv run python -m python3_pip_skeleton
 if __name__ == "__main__":
     main()

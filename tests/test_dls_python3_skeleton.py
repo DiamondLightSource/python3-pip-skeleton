@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from dls_python3_skeleton import __main__, __version__
+from python3_pip_skeleton import __main__, __version__
 
 
 def check_output(*args, cwd=None) -> str:
@@ -19,7 +19,7 @@ def check_output(*args, cwd=None) -> str:
 
 
 def test_cli_version():
-    output = check_output(sys.executable, "-m", "dls_python3_skeleton", "--version")
+    output = check_output(sys.executable, "-m", "python3_pip_skeleton", "--version")
     assert output.strip() == __version__
 
 
@@ -28,7 +28,7 @@ def test_new_module(tmp_path: Path):
     output = check_output(
         sys.executable,
         "-m",
-        "dls_python3_skeleton",
+        "python3_pip_skeleton",
         "new",
         "--org=myorg",
         "--package=my_module",
@@ -77,7 +77,7 @@ def test_new_module_existing_dir(tmp_path: Path):
         check_output(
             sys.executable,
             "-m",
-            "dls_python3_skeleton",
+            "python3_pip_skeleton",
             "new",
             "--org=myorg",
             "--package=my_module",
@@ -102,7 +102,7 @@ def test_existing_module(tmp_path: Path):
     output = check_output(
         sys.executable,
         "-m",
-        "dls_python3_skeleton",
+        "python3_pip_skeleton",
         "existing",
         str(module),
     )
@@ -122,7 +122,7 @@ Instructions on how to develop this module are in CONTRIBUTING.rst
         output = check_output(
             sys.executable,
             "-m",
-            "dls_python3_skeleton",
+            "python3_pip_skeleton",
             "existing",
             str(module),
         )
@@ -137,7 +137,7 @@ Instructions on how to develop this module are in CONTRIBUTING.rst
     output = check_output(
         sys.executable,
         "-m",
-        "dls_python3_skeleton",
+        "python3_pip_skeleton",
         "clean",
         ".",
         cwd=str(module),
@@ -160,7 +160,7 @@ def test_existing_module_already_adopted(tmp_path: Path):
         check_output(
             sys.executable,
             "-m",
-            "dls_python3_skeleton",
+            "python3_pip_skeleton",
             "existing",
             str(module),
         )
