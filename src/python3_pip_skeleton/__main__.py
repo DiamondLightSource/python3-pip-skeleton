@@ -16,16 +16,12 @@ SKELETON = "https://github.com/epics-containers/python3-pip-skeleton"
 # The name of the merge branch that will be created
 MERGE_BRANCH = "skeleton-merge-branch"
 # Extensions to change
-CHANGE_SUFFIXES = [".py", ".rst", ".cfg", ""]
+CHANGE_SUFFIXES = [".py", ".rst", ".cfg", "", ".toml"]
 # Files not to change
-IGNORE_FILES = ["CHANGELOG.rst", "test_boilerplate_removed.py", "_version_git.py"]
+IGNORE_FILES = ["CHANGELOG.rst", "test_boilerplate_removed.py"]
 # Ranges to ignore between
 IGNORE_RANGES = {
     "CONTRIBUTING.rst": ("\nUpdating the tools\n", None),
-    "api.rst": (
-        "Version number as calculated by",
-        "https://github.com/epics-containers/versiongit",
-    ),
 }
 SKELETON_ROOT_COMMIT = "ededf00035e6ccfac78946213009c1ecd7c110a9"
 
@@ -94,7 +90,7 @@ def merge_skeleton(
         git_tmp("pull", SKELETON, "skeleton")
         # Move things around
         git_tmp("mv", "src/python3_pip_skeleton", f"src/{package}")
-        git_tmp("mv", "tests/test_python3_pip_skeleton.py", f"tests/test_{package}.py")
+        git_tmp("mv", "tests/test_dls_python3_skeleton.py", f"tests/test_{package}.py")
         # Change contents of all children known to git
         for relative_child in git_tmp("ls-files").splitlines():
             child = Path(git_tmp.name) / relative_child
@@ -170,7 +166,7 @@ def new(args):
         path.mkdir(parents=True)
 
     package = validate_package(args)
-    git("init", cwd=path)
+    git("init", "-b", "main", cwd=path)
     print(f"Created git repo in {path}")
     merge_skeleton(
         path=path,

@@ -47,19 +47,29 @@ def test_new_module(tmp_path: Path):
     versiongit_lines = [
         line
         for line in (module / "docs" / "reference" / "api.rst").read_text().splitlines()
-        if "versiongit" in line
+        if "setuptools" in line
     ]
-    assert "    Version number as calculated by setuptools_scm" in versiongit_lines
+    assert (
+        "    Version number as calculated by https://github.com/pypa/setuptools_scm"
+        in versiongit_lines
+    )
     assert (module / "src" / "my_module").is_dir()
     assert check_output("git", "branch", cwd=module).strip() == "* main"
     check_output("virtualenv", ".venv", cwd=module)
     check_output(".venv/bin/pip", "install", ".[dev]", cwd=module)
-    check_output(".venv/bin/tox", "-e", "docs", cwd=module)
+    check_output(
+        ".venv/bin/sphinx-build",
+        "-EWT",
+        "--keep-going",
+        "docs",
+        "build/html",
+        cwd=module,
+    )
     with pytest.raises(ValueError) as ctx:
-        check_output(".venv/bin/pytest", "tests", cwd=module)
+        check_output(module / ".venv/bin/pytest", "tests", cwd=module)
     out = ctx.value.args[0]
     print(out)
-    assert "6 failed, 5 passed" in out
+    assert "6 failed, 4 passed" in out
     assert "Please change description in ./setup.cfg" in out
     assert "Please change ./README.rst" in out
     assert "Please change ./docs/reference/api.rst" in out
