@@ -115,7 +115,7 @@ jobs:
           pip freeze --exclude-editable > requirements_dev.txt
 
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v3
         with:
           name: ${{ matrix.python }}/${{ matrix.os }}/${{ matrix.lock }}
           files: cov.xml
