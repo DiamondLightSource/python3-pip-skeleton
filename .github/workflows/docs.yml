@@ -6,7 +6,6 @@ on:
       # Add more branches here to publish docs from other branches
       - master
       - main
-      - skeleton
     tags:
       - "*"
   pull_request:
