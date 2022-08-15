@@ -3,6 +3,14 @@ python3-pip-skeleton
 
 |code_ci| |docs_ci| |coverage| |pypi_version| |license|
 
+.. note::
+    
+    This project contains template code only. For documentation on how to
+    adopt this skeleton project see 
+    https://epics-containers.github.io/python3-pip-skeleton-cli
+
+    [Remove this note when adopting skeleton.]
+
 This is where you should write a short paragraph that describes what your module does,
 how it does it, and why people should use it.
 
@@ -15,18 +23,9 @@ Releases       https://github.com/epics-containers/python3-pip-skeleton/releases
 
 This is where you should put some images or code snippets that illustrate
 some relevant examples. If it is a library then you might put some
-introductory code here:
+introductory code here.
 
-.. code:: python
-
-    from python3_pip_skeleton.hello import HelloClass
-
-    hello = HelloClass("me")
-    print(hello.format_greeting())
-
-Or if it is a commandline tool then you might put some example commands here::
-
-    python3-pip-skeleton person --times=2
+Or if it is a commandline tool then you might put some example commands here.
 
 .. |code_ci| image:: https://github.com/epics-containers/python3-pip-skeleton/workflows/Code%20CI/badge.svg?branch=main
     :target: https://github.com/epics-containers/python3-pip-skeleton/actions?query=workflow%3A%22Code+CI%22

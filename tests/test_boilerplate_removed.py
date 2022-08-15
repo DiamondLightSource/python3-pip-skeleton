@@ -9,7 +9,7 @@ ROOT = Path(__file__).parent.parent
 
 
 def skeleton_check(check: bool, text: str):
-    if ROOT.name == "python3-pip-skeleton":
+    if ROOT.name == "python3-pip-skeleton" or str(ROOT) == "/project":
         # In the skeleton module the check should fail
         check = not check
         text = f"Skeleton didn't raise: {text}"
@@ -55,21 +55,6 @@ def test_changed_README_body():
         "README.rst",
         "This is where you should put some images or code snippets",
         "to include some features and why people should use it",
-    )
-
-
-# Docs
-def test_docs_ref_api_changed():
-    assert_not_contains_text(
-        "docs/reference/api.rst",
-        "You can mix verbose text with docstring and signature",
-        "to introduce the API for your module",
-    )
-
-
-def test_how_tos_written():
-    assert_not_exists(
-        "docs/how-to/accomplish-a-task.rst", "and write some docs/how-tos"
     )
 
 

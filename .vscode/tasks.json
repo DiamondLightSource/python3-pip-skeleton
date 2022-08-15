@@ -6,7 +6,7 @@
         {
             "type": "shell",
             "label": "Tests with coverage",
-            "command": "pipenv run tests",
+            "command": "tox -e pytest",
             "options": {
                 "cwd": "${workspaceRoot}"
             },

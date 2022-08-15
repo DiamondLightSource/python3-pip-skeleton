@@ -9,7 +9,6 @@ Practical step-by-step guides for the more experienced user.
     :caption: Reference
 
     reference/api
-    reference/contributing
     Releases <https://github.com/epics-containers/python3-pip-skeleton/releases>
     Index <genindex.html#http://>
 
