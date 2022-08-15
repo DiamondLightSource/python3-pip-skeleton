@@ -65,3 +65,5 @@ target/
 /venv/
 /lightweight-venv/
 /installed.files
+.venv*
+
