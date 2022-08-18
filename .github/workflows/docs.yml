@@ -2,16 +2,13 @@ name: Docs CI
 
 on:
   push:
-    branches:
-      # Add more branches here to publish docs from other branches
-      - master
-      - main
     tags:
       - "*"
   pull_request:
 
 jobs:
   docs:
+    if: github.event_name != 'pull_request' || github.event.pull_request.repository == github.repository
     strategy:
       fail-fast: false
       matrix:

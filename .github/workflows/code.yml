@@ -2,30 +2,14 @@ name: Code CI
 
 on:
   push:
-    branches:
-      - "*"
-    tags:
-      - "*"
   pull_request:
   schedule:
     # Run every Monday at 8am to check latest versions of dependencies
     - cron: "0 8 * * MON"
 
 jobs:
-  skip_check:
-    runs-on: ubuntu-latest
-    outputs:
-      should_skip: ${{ steps.skip_check.outputs.should_skip }}
-    steps:
-      - id: skip_check
-        # pinned to SHA for v4.0.0
-        uses: fkirc/skip-duplicate-actions@9d116fa7e55f295019cfab7e3ab72b478bcf7fdd
-        with:
-          concurrent_skipping: "always"
-
   lint:
-    needs: skip_check
-    if: ${{ needs.pre_job.outputs.should_skip != 'true' }}
+    if: github.event_name != 'pull_request' || github.event.pull_request.repository == github.repository
     runs-on: "ubuntu-latest"
     steps:
       - name: Checkout
@@ -37,8 +21,7 @@ jobs:
           tox -e pre-commit,mypy
 
   wheel:
-    needs: skip_check
-    if: ${{ needs.pre_job.outputs.should_skip != 'true' }}
+    if: github.event_name != 'pull_request' || github.event.pull_request.repository == github.repository
     strategy:
       fail-fast: false
       matrix:
@@ -72,8 +55,7 @@ jobs:
         run: pipx run --python $(which python${{ matrix.python }}) --spec dist/*.whl ${GITHUB_REPOSITORY##*/} --version
 
   test:
-    needs: skip_check
-    if: ${{ needs.pre_job.outputs.should_skip != 'true' }}
+    if: github.event_name != 'pull_request' || github.event.pull_request.repository == github.repository
     strategy:
       fail-fast: false
       matrix:
