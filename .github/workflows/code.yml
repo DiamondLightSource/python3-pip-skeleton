@@ -3,11 +3,7 @@ name: Code CI
 on:
   push:
     branches:
-      # Restricting to these branches and tags stops duplicate jobs on internal
-      # PRs but stops CI running on internal branches without a PR. Delete the
-      # next 5 lines to restore the original behaviour
-      - master
-      - main
+      - "*"
     tags:
       - "*"
   pull_request:
@@ -16,7 +12,19 @@ on:
     - cron: "0 8 * * MON"
 
 jobs:
+  skip_check:
+    runs-on: ubuntu-latest
+    outputs:
+      should_skip: ${{ steps.skip_check.outputs.should_skip }}
+    steps:
+      - id: skip_check
+        uses: fkirc/skip-duplicate-actions@v4
+        with:
+          concurrent_skipping: "always"
+
   lint:
+    needs: skip_check
+    if: ${{ needs.pre_job.outputs.should_skip != 'true' }}
     runs-on: "ubuntu-latest"
     steps:
       - name: Checkout
@@ -28,6 +36,8 @@ jobs:
           tox -e pre-commit,mypy
 
   wheel:
+    needs: skip_check
+    if: ${{ needs.pre_job.outputs.should_skip != 'true' }}
     strategy:
       fail-fast: false
       matrix:
@@ -61,6 +71,8 @@ jobs:
         run: pipx run --python $(which python${{ matrix.python }}) --spec dist/*.whl ${GITHUB_REPOSITORY##*/} --version
 
   test:
+    needs: skip_check
+    if: ${{ needs.pre_job.outputs.should_skip != 'true' }}
     strategy:
       fail-fast: false
       matrix:
