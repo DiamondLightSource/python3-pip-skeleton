@@ -58,21 +58,6 @@ def test_changed_README_body():
     )
 
 
-# Docs
-def test_docs_ref_api_changed():
-    assert_not_contains_text(
-        "docs/reference/api.rst",
-        "You can mix verbose text with docstring and signature",
-        "to introduce the API for your module",
-    )
-
-
-def test_how_tos_written():
-    assert_not_exists(
-        "docs/how-to/accomplish-a-task.rst", "and write some docs/how-tos"
-    )
-
-
 def test_explanations_written():
     assert_not_exists(
         "docs/explanations/why-is-something-so.rst", "and write some docs/explanations"
