@@ -1,7 +1,7 @@
 import subprocess
 import sys
 
-from python3_pip_skeleton import __main__, __version__
+from python3_pip_skeleton import __version__
 
 
 def test_cli_version():
