@@ -9,6 +9,8 @@ python3-pip-skeleton
     adopt this skeleton project see 
     https://epics-containers.github.io/python3-pip-skeleton-cli
 
+    [Remove this note when adopting skeleton.]
+
 This is where you should write a short paragraph that describes what your module does,
 how it does it, and why people should use it.
 
