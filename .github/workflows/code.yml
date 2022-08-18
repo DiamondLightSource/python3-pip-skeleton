@@ -108,9 +108,8 @@ jobs:
       - name: Install with locked dependencies
         if: matrix.lock
         run: |
-          echo '# runtime dependencies' > requirements.txt 
-          echo '# developer dependencies' > requirements_dev.txt
-          # above avoids zero length requirements files
+          touch requirements.txt 
+          touch requirements_dev.txt
           pip install -r requirements.txt -e .
           pip freeze --exclude-editable >> requirements.txt
           pip install -r requirements_dev.txt -e .[dev]
@@ -118,7 +117,7 @@ jobs:
 
       - name: Install with latest dependencies
         if: ${{ ! matrix.lock }}
-        run: pip install -e .[dev]
+        run: pip install .[dev]
 
       - name: Run tests
         run: pytest tests
