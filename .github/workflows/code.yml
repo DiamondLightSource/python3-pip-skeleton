@@ -9,74 +9,37 @@ on:
 
 jobs:
   lint:
-    # pull requests are a duplicate of a branch push if they are from within the
-    # same repo. Skip these
-    if: false  && github.event_name != 'pull_request' || github.event.pull_request.repository == github.repository
-    runs-on: "ubuntu-latest"
+    # pull requests are a duplicate of a branch push if within the same repo.
+    if: github.event_name != 'pull_request' || github.event.pull_request.repository == github.repository
+    runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.10"
+
       - name: Lint
         run: |
-          pip install --user .[dev]
+          touch requirements_dev.txt
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements_dev.txt -e .[dev]
           tox -e pre-commit,mypy
 
-  wheel:
-    if: false  && github.event_name != 'pull_request' || github.event.pull_request.repository == github.repository
-    strategy:
-      fail-fast: false
-      matrix:
-        os: ["ubuntu-latest"]
-        python: ["3.8"]
-
-    runs-on: ${{ matrix.os }}
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Create Sdist and Wheel
-        # Set SOURCE_DATE_EPOCH from git commit for reproducible build
-        # https://reproducible-builds.org/
-        run: |
-          SOURCE_DATE_EPOCH=$(git log -1 --pretty=%ct) pipx run build --sdist --wheel
-
-      - name: Upload Wheel and Sdist as artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: dist
-          path: dist
-
-      - name: Install minimum python version
-        uses: actions/setup-python@v4
-        with:
-          python-version: ${{ matrix.python }}
-
-      - name: Install wheel in a venv and check cli works
-        # ${GITHUB_REPOSITORY##*/} is the repo name without org
-        # Replace this with the cli command if different to the repo name
-        run: pipx run --python $(which python${{ matrix.python }}) --spec dist/*.whl ${GITHUB_REPOSITORY##*/} --version
-
   test:
-    if: false  && github.event_name != 'pull_request' || github.event.pull_request.repository == github.repository
+    if: github.event_name != 'pull_request' || github.event.pull_request.repository == github.repository
     strategy:
       fail-fast: false
       matrix:
         os: ["ubuntu-latest"] # can add windows-latest, macos-latest
         python: ["3.8", "3.9", "3.10"]
-        lock: [false]
-
-        include:
-          # Add an extra Python3.10 runner to use the lockfile
-          - os: "ubuntu-latest"
-            python: "3.10"
-            lock: true
 
     runs-on: ${{ matrix.os }}
     env:
       # https://github.com/pytest-dev/pytest/issues/2042
       PY_IGNORE_IMPORTMISMATCH: "1"
-      # enable QT tests with no X Display
-      QT_QPA_PLATFORM: "offscreen"
 
     steps:
       - name: Checkout
@@ -89,74 +52,20 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
 
-      - name: Install with locked dependencies
-        if: matrix.lock
-        run: |
-          touch requirements.txt 
-          touch requirements_dev.txt
-          pip install -r requirements.txt -e .
-          pip freeze --exclude-editable > requirements.txt
-          pip install -r requirements_dev.txt -e .[dev]
-          pip freeze --exclude-editable > requirements_dev.txt
-          # ensure non-zero length requirements.txt
-          echo "# runtime dependencies" >> requirements.txt
-
       - name: Install with latest dependencies
-        if: ${{ ! matrix.lock }}
         run: pip install .[dev]
 
       - name: Run tests
         run: pytest tests
 
-      - name: Create requirements_dev.txt
-        run: |
-          pip freeze --exclude-editable > requirements_dev.txt
-
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2
         with:
-          name: ${{ matrix.python }}/${{ matrix.os }}/${{ matrix.lock }}
+          name: ${{ matrix.python }}/${{ matrix.os }}
           files: cov.xml
 
-      - name: Upload build files
-        if: matrix.lock
-        uses: actions/upload-artifact@v3
-        with:
-          name: buildfiles
-          path: |
-            requirements.txt
-            requirements_dev.txt
-
-  release:
-    needs: [lint, wheel, test]
-    runs-on: ubuntu-latest
-    # upload to PyPI and make a release on every tag
-    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
-    steps:
-      - uses: actions/download-artifact@v3
-        with:
-          path: artifacts
-
-      - name: Github Release
-        # We pin to the SHA, not the tag, for security reasons.
-        # https://docs.github.com/en/actions/learn-github-actions/security-hardening-for-github-actions#using-third-party-actions
-        uses: softprops/action-gh-release@1e07f4398721186383de40550babbdf2b84acfc5 # v0.1.14
-        with:
-          files: |
-            artifacts/dist/*
-            artifacts/buildfiles/*
-          generate_release_notes: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Publish to PyPI
-        env:
-          TWINE_USERNAME: __token__
-          TWINE_PASSWORD: ${{ secrets.pypi_token }}
-        run: pipx run twine upload artifacts/dist/*
-
-  make-container:
-    # needs: [lint, wheel, test]
+  container:
+    if: github.event_name != 'pull_request' || github.event.pull_request.repository == github.repository
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -165,11 +74,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
-      # - uses: actions/download-artifact@v3
-      #   with:
-      #     name: dist
-      #     path: dist
+        with:
+          fetch-depth: 0
 
       - name: Cache Docker layers
         uses: actions/cache@v3
@@ -179,13 +85,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-buildx-
 
-      # - name: Log in to GitHub Docker Registry
-      #   if: github.event_name != 'pull_request'
-      #   uses: docker/login-action@v2
-      #   with:
-      #     registry: ghcr.io
-      #     username: ${{ github.actor }}
-      #     password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Log in to GitHub Docker Registry
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Docker meta
         id: meta
@@ -195,50 +101,91 @@ jobs:
           tags: |
             type=ref,event=branch
             type=ref,event=tag
-            type=raw,value=latest
 
       - name: Set up Docker Buildx
         id: buildx
         uses: docker/setup-buildx-action@v2
 
+      - name: Build developer image for testing
+        uses: docker/build-push-action@v3
+        with:
+          tags: build:latest
+          context: .
+          target: build
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache
+          load: true
+
+      - name: Run tests in the container locked with requirements_dev.txt
+        run: |
+          docker run --name test build bash /project/tests/container_tests.sh
+          docker cp test:/project/dist .
+          docker cp test:/project/requirements.txt .
+          docker cp test:/project/requirements_dev.txt .
+
       - name: Build runtime image
         uses: docker/build-push-action@v3
         with:
-          file: .devcontainer/Dockerfile
-          context: .
-          # push: ${{ github.event_name != 'pull_request' }}
-          build-args: BASE=python:3.10-slim
+          push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
+          context: .
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
-          outputs: type=docker,dest=/tmp/image.tar
 
-      - name: show tags
-        run: |
-          echo This is the tags generated by Docker meta
-          echo ${{ steps.meta.outputs.tags }}
-
-      - name: Upload container image
-        uses: actions/upload-artifact@v2
+      - name: Upload build files
+        uses: actions/upload-artifact@v3
         with:
-          name: image
-          path: /tmp/image.tar
+          name: build_files
+          path: |
+            dist
+            requirements.txt
+            requirements_dev.txt
 
-  use-container:
+  sdist:
+    needs: container
     runs-on: ubuntu-latest
-    needs: make-container
+
     steps:
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+      - name: Checkout
+        uses: actions/checkout@v2
 
-      - name: Download artifact
-        uses: actions/download-artifact@v2
+      - uses: actions/setup-python@v2
         with:
-          name: image
-          path: /tmp
+          python-version: "3.10"
 
-      - name: Load Docker image
+      - uses: actions/download-artifact@v3
+
+      - name: Install sdist in a venv and check cli works
+        # ${GITHUB_REPOSITORY##*/} is the repo name without org
+        # Replace this with the cli command if different to the repo name
         run: |
-          docker load --input /tmp/image.tar
-          docker image ls -a
+          python -m pip install --upgrade pip
+          python -m pip install build_files/dist/*.gz
+          ${GITHUB_REPOSITORY##*/} --version
+
+  release:
+    # upload to PyPI and make a release on every tag
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+    needs: [lint, container]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/download-artifact@v3
+
+      - name: Github Release
+        # We pin to the SHA, not the tag, for security reasons.
+        # https://docs.github.com/en/actions/learn-github-actions/security-hardening-for-github-actions#using-third-party-actions
+        uses: softprops/action-gh-release@1e07f4398721186383de40550babbdf2b84acfc5 # v0.1.14
+        with:
+          files: |
+            build_files/*
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish to PyPI
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.pypi_token }}
+        run: pipx run twine upload artifacts/dist/*

@@ -1,11 +1,11 @@
 # This file is for use as a devcontainer and a runtime container
 # 
-# The devcontainer should use the build target and run as root and use podman 
+# The devcontainer should use the build target and run as root with podman 
 # or docker with user namespaces.
 #
-
 FROM python:3.10 as build
 
+# Add any system dependencies for the developer/build environment here
 RUN apt-get update && apt-get upgrade -y && \
     apt-get install -y --no-install-recommends \
     build-essential \
@@ -16,23 +16,30 @@ RUN apt-get update && apt-get upgrade -y && \
     && rm -rf /var/lib/apt/lists/* \
     && busybox --install
 
-RUN python3 -m venv /virtualenv
-ENV PATH=/virtualenv/bin:$PATH
-
 COPY . /project
 
-# verify that the wheel installs and runs with --version
-# replace python3-pip-skeleton if the cli command is different from repo name
 RUN cd /project && \
     pip install --upgrade pip build && \
+    export SOURCE_DATE_EPOCH=$(git log -1 --pretty=%ct) && \
     python -m build --sdist --wheel && \
-    pip install dist/*.whl && \
-    python3-pip-skeleton --version
+    touch requirements.txt
+
+RUN python -m venv /venv
+ENV PATH=/venv/bin:$PATH
+
+RUN cd /project && \
+    pip install --upgrade pip && \
+    pip install -r requirements.txt dist/*.whl && \
+    pip freeze  > requirements.txt && \
+    sed -i '/file:\/\//d' requirements.txt
 
 FROM python:3.10-slim as runtime
 
-COPY --from=build /virtualenv/ /virtualenv/
-ENV PATH=/virtualenv/bin:$PATH
+# Add apt-get system dependecies for runtime here if needed
 
+COPY --from=build /venv/ /venv/
+ENV PATH=/venv/bin:$PATH
+
+# change this entrypoint if it is not the same as the repo
 ENTRYPOINT ["python3-pip-skeleton"]
 CMD ["--version"]

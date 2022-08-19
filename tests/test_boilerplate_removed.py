@@ -9,7 +9,7 @@ ROOT = Path(__file__).parent.parent
 
 
 def skeleton_check(check: bool, text: str):
-    if ROOT.name == "python3-pip-skeleton":
+    if ROOT.name == "python3-pip-skeleton" or str(ROOT) == "/project":
         # In the skeleton module the check should fail
         check = not check
         text = f"Skeleton didn't raise: {text}"
