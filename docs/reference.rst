@@ -3,7 +3,7 @@
 Reference
 =========
 
-Practical step-by-step guides for the more experienced user.
+Technical reference material including APIs and release notes.
 
 .. toctree::
     :caption: Reference

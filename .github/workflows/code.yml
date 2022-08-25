@@ -5,7 +5,7 @@ on:
   pull_request:
   schedule:
     # Run every Monday at 8am to check latest versions of dependencies
-    - cron: "0 8 * * MON"
+    - cron: "0 8 * * WED"
 
 jobs:
   lint:
@@ -23,9 +23,9 @@ jobs:
 
       - name: Lint
         run: |
-          touch requirements_dev.txt
+          touch requirements_dev.txt requirements.txt
           python -m pip install --upgrade pip
-          python -m pip install -r requirements_dev.txt -e .[dev]
+          python -m pip install -r requirements.txt -r requirements_dev.txt -e .[dev]
           tox -e pre-commit,mypy
 
   test:
@@ -59,7 +59,7 @@ jobs:
         run: pytest tests
 
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v3
         with:
           name: ${{ matrix.python }}/${{ matrix.os }}
           files: cov.xml
@@ -82,8 +82,7 @@ jobs:
         with:
           path: /tmp/.buildx-cache
           key: ${{ runner.os }}-buildx-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-buildx-
+          restore-keys: ${{ runner.os }}-buildx-
 
       - name: Log in to GitHub Docker Registry
         if: github.event_name != 'pull_request'
@@ -118,10 +117,17 @@ jobs:
 
       - name: Run tests in the container locked with requirements_dev.txt
         run: |
-          docker run --name test build bash /project/tests/container_tests.sh
+          docker run --name test build bash /project/.github/workflows/container_tests.sh
           docker cp test:/project/dist .
           docker cp test:/project/requirements.txt .
           docker cp test:/project/requirements_dev.txt .
+          docker cp test:/project/cov.xml .
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          name: 3.10-locked/ubuntu-latest
+          files: cov.xml
 
       - name: Build runtime image
         uses: docker/build-push-action@v3
@@ -147,9 +153,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
       - uses: actions/setup-python@v4
         with:
           python-version: "3.10"

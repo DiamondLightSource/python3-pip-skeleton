@@ -31,6 +31,7 @@ RUN cd /project && \
     pip install --upgrade pip && \
     pip install -r requirements.txt dist/*.whl && \
     pip freeze  > requirements.txt && \
+    # we don't want to include our own wheel in requirements - remove with sed
     sed -i '/file:\/\//d' requirements.txt
 
 FROM python:3.10-slim as runtime

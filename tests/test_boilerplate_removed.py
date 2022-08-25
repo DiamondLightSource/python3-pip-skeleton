@@ -56,9 +56,3 @@ def test_changed_README_body():
         "This is where you should put some images or code snippets",
         "to include some features and why people should use it",
     )
-
-
-def test_explanations_written():
-    assert_not_exists(
-        "docs/explanations/why-is-something-so.rst", "and write some docs/explanations"
-    )
