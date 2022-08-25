@@ -4,7 +4,7 @@ Installation
 Check your version of python
 ----------------------------
 
-You will need python 3.7 or later. You can check your version of python by
+You will need python 3.8 or later. You can check your version of python by
 typing into a terminal::
 
     python3 --version
@@ -36,3 +36,10 @@ The library should now be installed and the commandline interface on your path.
 You can check the version that has been installed by typing::
 
     python3-pip-skeleton --version
+
+Running in a container
+----------------------
+
+To pull the container from github container registry and run::
+    
+    docker run ghcr.io/epics-containers/python3-pip-skeleton:main --version

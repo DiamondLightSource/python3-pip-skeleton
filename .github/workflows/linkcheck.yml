@@ -3,7 +3,7 @@ name: Link Check
 on:
   schedule:
     # Run every Monday at 8am to check URL links still resolve
-    - cron: "0 8 * * MON"
+    - cron: "0 8 * * WED"
 
 jobs:
   docs:
