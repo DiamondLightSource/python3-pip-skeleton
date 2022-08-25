@@ -17,15 +17,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - uses: actions/setup-python@v4
+      - name: Setup python
+        uses: actions/setup-python@v4
         with:
           python-version: "3.10"
 
       - name: Lint
         run: |
           touch requirements_dev.txt requirements.txt
-          python -m pip install --upgrade pip
-          python -m pip install -r requirements.txt -r requirements_dev.txt -e .[dev]
+          pip install -r requirements.txt -r requirements_dev.txt -e .[dev]
           tox -e pre-commit,mypy
 
   test:
@@ -153,18 +153,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/setup-python@v4
-        with:
-          python-version: "3.10"
-
       - uses: actions/download-artifact@v3
 
       - name: Install sdist in a venv and check cli works
         # ${GITHUB_REPOSITORY##*/} is the repo name without org
         # Replace this with the cli command if different to the repo name
         run: |
-          python -m pip install --upgrade pip
-          python -m pip install build_files/dist/*.gz
+          pip install build_files/dist/*.gz
           ${GITHUB_REPOSITORY##*/} --version
 
   release:
