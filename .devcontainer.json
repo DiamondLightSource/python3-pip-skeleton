@@ -12,7 +12,7 @@
     },
     // Set *default* container specific settings.json values on container create.
     "settings": {
-        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "python.defaultInterpreterPath": "/venv/bin/python",
         "python.linting.enabled": true
     },
     // Add the IDs of extensions you want installed when the container is created.
@@ -21,12 +21,10 @@
         "ms-python.vscode-pylance"
     ],
     // Make sure the files we are mapping into the container exist on the host
-    "initializeCommand": "bash -c 'for i in $HOME/.inputrc $HOME/.bashrc_dev; do [ -f $i ] || touch $i; done'",
+    "initializeCommand": "bash -c 'for i in $HOME/.inputrc; do [ -f $i ] || touch $i; done'",
     "runArgs": [
-        "--privileged",
         "--net=host",
         "-v=${localEnv:HOME}/.ssh:/root/.ssh",
-        "-v=${localEnv:HOME}/.bashrc_dev:/root/.bashrc",
         "-v=${localEnv:HOME}/.inputrc:/root/.inputrc"
     ],
     "mounts": [
