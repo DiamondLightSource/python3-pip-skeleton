@@ -5,7 +5,7 @@ on:
   pull_request:
   schedule:
     # Run every Monday at 8am to check latest versions of dependencies
-    - cron: "0 8 * * MON"
+    - cron: "0 8 * * WED"
 
 jobs:
   lint:
@@ -17,15 +17,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - uses: actions/setup-python@v4
+      - name: Setup python
+        uses: actions/setup-python@v4
         with:
           python-version: "3.10"
 
       - name: Lint
         run: |
-          touch requirements_dev.txt
-          python -m pip install --upgrade pip
-          python -m pip install -r requirements_dev.txt -e .[dev]
+          touch requirements_dev.txt requirements.txt
+          pip install -r requirements.txt -r requirements_dev.txt -e .[dev]
           tox -e pre-commit,mypy
 
   test:
@@ -59,7 +59,7 @@ jobs:
         run: pytest tests
 
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v3
         with:
           name: ${{ matrix.python }}/${{ matrix.os }}
           files: cov.xml
@@ -76,14 +76,6 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-
-      - name: Cache Docker layers
-        uses: actions/cache@v3
-        with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-buildx-
 
       - name: Log in to GitHub Docker Registry
         if: github.event_name != 'pull_request'
@@ -112,16 +104,21 @@ jobs:
           tags: build:latest
           context: .
           target: build
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache
           load: true
 
       - name: Run tests in the container locked with requirements_dev.txt
         run: |
-          docker run --name test build bash /project/tests/container_tests.sh
+          docker run --name test build bash /project/.github/workflows/container_tests.sh
           docker cp test:/project/dist .
           docker cp test:/project/requirements.txt .
           docker cp test:/project/requirements_dev.txt .
+          docker cp test:/project/cov.xml .
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          name: 3.10-locked/ubuntu-latest
+          files: cov.xml
 
       - name: Build runtime image
         uses: docker/build-push-action@v3
@@ -130,8 +127,9 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           context: .
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache
+
+      - name: Check runtime
+        run: for i in ${{ steps.meta.outputs.tags }}; do docker run ${i} --version; done
 
       - name: Upload build files
         uses: actions/upload-artifact@v3
@@ -147,27 +145,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - uses: actions/setup-python@v4
-        with:
-          python-version: "3.10"
-
       - uses: actions/download-artifact@v3
 
       - name: Install sdist in a venv and check cli works
         # ${GITHUB_REPOSITORY##*/} is the repo name without org
         # Replace this with the cli command if different to the repo name
         run: |
-          python -m pip install --upgrade pip
-          python -m pip install build_files/dist/*.gz
+          pip install build_files/dist/*.gz
           ${GITHUB_REPOSITORY##*/} --version
 
   release:
     # upload to PyPI and make a release on every tag
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
-    needs: [lint, container]
+    needs: container
     runs-on: ubuntu-latest
 
     steps:
@@ -180,6 +170,7 @@ jobs:
         with:
           files: |
             build_files/*
+            build_files/dist/*
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -188,4 +179,4 @@ jobs:
         env:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.pypi_token }}
-        run: pipx run twine upload artifacts/dist/*
+        run: pipx run twine upload build_files/dist/*

@@ -4,3 +4,4 @@ dist/
 .mypy_cache
 .tox
 .venv*
+venv*
