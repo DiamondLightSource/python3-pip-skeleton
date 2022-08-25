@@ -2,21 +2,25 @@ name: Docs CI
 
 on:
   push:
-    tags:
-      - "*"
   pull_request:
 
 jobs:
   docs:
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.repository
     strategy:
       fail-fast: false
       matrix:
-        os: ["ubuntu-latest"]
         python: ["3.10"]
 
     runs-on: ubuntu-latest
 
     steps:
+      - name: Dump github context
+        run: echo "$GITHUB_CONTEXT"
+        shell: bash
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+
       - name: Avoid git conflicts when tag and branch pushed at same time
         if: startsWith(github.ref, 'refs/tags')
         run: sleep 60
@@ -44,7 +48,7 @@ jobs:
         run: tox -e docs
 
       - name: Move to versioned directory
-        # e.g. master or 0.1.2
+        # e.g. main or 0.1.2
         run: mv build/html ".github/pages/${GITHUB_REF##*/}"
 
       - name: Write versions.txt

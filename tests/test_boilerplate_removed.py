@@ -24,11 +24,6 @@ def assert_not_contains_text(path: str, text: str, explanation: str):
         skeleton_check(text in contents, f"Please change ./{path} {explanation}")
 
 
-def assert_not_exists(path: str, explanation: str):
-    exists = (ROOT / path).exists()
-    skeleton_check(exists, f"Please delete ./{path} {explanation}")
-
-
 # setup.cfg
 def test_module_description():
     conf = configparser.ConfigParser()
@@ -50,15 +45,17 @@ def test_changed_README_intro():
     )
 
 
+def test_removed_adopt_skeleton():
+    assert_not_contains_text(
+        "README.rst",
+        "This project contains template code only",
+        "remove the note at the start",
+    )
+
+
 def test_changed_README_body():
     assert_not_contains_text(
         "README.rst",
         "This is where you should put some images or code snippets",
         "to include some features and why people should use it",
-    )
-
-
-def test_explanations_written():
-    assert_not_exists(
-        "docs/explanations/why-is-something-so.rst", "and write some docs/explanations"
     )
