@@ -128,6 +128,9 @@ jobs:
           context: .
           labels: ${{ steps.meta.outputs.labels }}
 
+      - name: Check runtime
+        run: for i in ${{ steps.meta.outputs.tags }}; do docker run ${i} --version; done
+
       - name: Upload build files
         uses: actions/upload-artifact@v3
         with:
@@ -176,4 +179,4 @@ jobs:
         env:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.pypi_token }}
-        run: pipx run twine upload artifacts/dist/*
+        run: pipx run twine upload build_files/dist/*
