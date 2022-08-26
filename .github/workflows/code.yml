@@ -165,7 +165,7 @@ jobs:
   release:
     # upload to PyPI and make a release on every tag
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
-    needs: [lint, container]
+    needs: container
     runs-on: ubuntu-latest
 
     steps:
@@ -177,7 +177,8 @@ jobs:
         uses: softprops/action-gh-release@1e07f4398721186383de40550babbdf2b84acfc5 # v0.1.14
         with:
           files: |
-            build_files/*
+            build_files/requirements*
+            build_files/dist
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
