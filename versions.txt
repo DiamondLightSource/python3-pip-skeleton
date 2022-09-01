@@ -1,4 +1,3 @@
 main
 dev
-main2
 merge
