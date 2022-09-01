@@ -1,6 +1,4 @@
 main
-dev
-dev-main
 merge
 merge-main
 test
