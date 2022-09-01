@@ -1,5 +1,4 @@
 main
-.git
 dev
 dev-main
 dev2
