@@ -1,4 +1,3 @@
 main
 dev
-feature
 merge
