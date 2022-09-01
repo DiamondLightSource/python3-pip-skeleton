@@ -12,6 +12,8 @@ python3-pip-skeleton
 This is where you should write a short paragraph that describes what your module does,
 how it does it, and why people should use it.
 
+TESTING A PR FROM A SEPARATE REPO
+
 ============== ==============================================================
 PyPI           ``pip install python3-pip-skeleton``
 Source code    https://github.com/epics-containers/python3-pip-skeleton
