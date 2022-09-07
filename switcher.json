@@ -1,0 +1,18 @@
+[
+  {
+    "name": "main",
+    "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/main/"
+  },
+  {
+    "name": "dev-archive",
+    "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/dev-archive/"
+  },
+  {
+    "name": "feature",
+    "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/feature/"
+  },
+  {
+    "name": "main-archive",
+    "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/main-archive/"
+  }
+]
