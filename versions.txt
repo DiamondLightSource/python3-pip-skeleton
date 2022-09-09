@@ -2,4 +2,3 @@ main
 dev-archive
 feature
 main-archive
-tox-direct
