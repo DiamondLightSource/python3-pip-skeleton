@@ -10,9 +10,5 @@
   {
     "name": "main-archive",
     "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/main-archive/"
-  },
-  {
-    "name": "pydata-docs",
-    "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/pydata-docs/"
   }
 ]
