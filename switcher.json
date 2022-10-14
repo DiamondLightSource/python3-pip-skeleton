@@ -18,9 +18,5 @@
   {
     "version": "main-archive",
     "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/main-archive/"
-  },
-  {
-    "version": "pydata-pin",
-    "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/pydata-pin/"
   }
 ]
