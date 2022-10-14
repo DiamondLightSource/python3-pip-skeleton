@@ -1,18 +1,22 @@
 [
   {
-    "name": "main",
+    "version": "main",
     "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/main/"
   },
   {
-    "name": "dev-archive",
+    "version": "dev-archive",
     "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/dev-archive/"
   },
   {
-    "name": "gilesknap-patch-1",
+    "version": "gilesknap-patch-1",
     "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/gilesknap-patch-1/"
   },
   {
-    "name": "main-archive",
+    "version": "main-archive",
     "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/main-archive/"
+  },
+  {
+    "version": "pydata-pin",
+    "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/pydata-pin/"
   }
 ]
