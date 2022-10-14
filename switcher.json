@@ -4,6 +4,10 @@
     "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/main/"
   },
   {
+    "version": "autobuild",
+    "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/autobuild/"
+  },
+  {
     "version": "dev-archive",
     "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/dev-archive/"
   },
