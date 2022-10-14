@@ -10,9 +10,5 @@
   {
     "version": "main-archive",
     "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/main-archive/"
-  },
-  {
-    "version": "support_funny_branches",
-    "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/support_funny_branches/"
   }
 ]
