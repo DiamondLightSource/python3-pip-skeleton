@@ -8,6 +8,10 @@
     "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/dev-archive/"
   },
   {
+    "version": "lockfiles",
+    "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/lockfiles/"
+  },
+  {
     "version": "main-archive",
     "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/main-archive/"
   }
