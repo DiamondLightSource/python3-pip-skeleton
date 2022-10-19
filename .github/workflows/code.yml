@@ -125,7 +125,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           context: .
           labels: ${{ steps.meta.outputs.labels }}
-          build-args: ${{ !(github.event_name == 'push' && startsWith(github.ref, 'refs/tags')) && "SETUPTOOLS_SCM_PRETEND_VERSION=$(git describe --tags | cut -d '-' -f 1,2 --output-delimiter '.dev')" }}
+          build-args: ${{ !(github.event_name == 'push' && startsWith(github.ref, 'refs/tags')) && SETUPTOOLS_SCM_PRETEND_VERSION=$(git describe --tags | cut -d - -f 1,2 --output-delimiter .dev)' }}
 
       - name: Test cli works in runtime image
         # check that the first tag can run with --version parameter
