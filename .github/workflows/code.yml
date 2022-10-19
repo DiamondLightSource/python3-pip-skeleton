@@ -125,7 +125,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           context: .
           labels: ${{ steps.meta.outputs.labels }}
-          build-args: ${{ !startsWith(github.ref, 'refs/tags') && 'SETUPTOOLS_SCM_PRETEND_VERSION=$(git describe --tags --abbrev=0).$(date +%s)' }}
+          build-args: ${{ !startsWith(github.ref, 'refs/tags') && ['SETUPTOOLS_SCM_PRETEND_VERSION=$(git describe --tags --abbrev=0).$(date +%s)'] }}
 
       - name: Test cli works in runtime image
         # check that the first tag can run with --version parameter
