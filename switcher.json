@@ -14,9 +14,5 @@
   {
     "version": "main-archive",
     "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/main-archive/"
-  },
-  {
-    "version": "tox-direct",
-    "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/tox-direct/"
   }
 ]
