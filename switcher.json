@@ -12,11 +12,11 @@
     "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/dev-archive/"
   },
   {
-    "version": "main-archive",
-    "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/main-archive/"
+    "version": "garryod-no-setup-cfg",
+    "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/garryod-no-setup-cfg/"
   },
   {
-    "version": "review-nov22",
-    "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/review-nov22/"
+    "version": "main-archive",
+    "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/main-archive/"
   }
 ]
