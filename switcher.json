@@ -8,12 +8,12 @@
     "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/dev-archive/"
   },
   {
-    "version": "garryod-devcontainer-mounts",
-    "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/garryod-devcontainer-mounts/"
+    "version": "garryod-dev-container-customizations",
+    "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/garryod-dev-container-customizations/"
   },
   {
-    "version": "garryod-strict-twine-check",
-    "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/garryod-strict-twine-check/"
+    "version": "garryod-devcontainer-mounts",
+    "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/garryod-devcontainer-mounts/"
   },
   {
     "version": "main-archive",
