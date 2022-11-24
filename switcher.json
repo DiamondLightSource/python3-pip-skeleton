@@ -18,5 +18,9 @@
   {
     "version": "main-archive",
     "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/main-archive/"
+  },
+  {
+    "version": "no-check-switcher",
+    "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/no-check-switcher/"
   }
 ]
