@@ -12,10 +12,6 @@
     "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/garryod-container-features/"
   },
   {
-    "version": "garryod-dev-container-customizations",
-    "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/garryod-dev-container-customizations/"
-  },
-  {
     "version": "garryod-devcontainer-mounts",
     "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/garryod-devcontainer-mounts/"
   },
