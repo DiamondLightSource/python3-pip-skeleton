@@ -22,9 +22,5 @@
   {
     "version": "main-archive",
     "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/main-archive/"
-  },
-  {
-    "version": "unpin-flake8",
-    "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/unpin-flake8/"
   }
 ]
