@@ -20,6 +20,10 @@
     "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/garryod-devcontainer-mounts/"
   },
   {
+    "version": "garryod-link-containers-dev",
+    "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/garryod-link-containers-dev/"
+  },
+  {
     "version": "main-archive",
     "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/main-archive/"
   }
