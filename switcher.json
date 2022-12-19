@@ -4,6 +4,10 @@
     "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/main/"
   },
   {
+    "version": "conda-CI",
+    "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/conda-CI/"
+  },
+  {
     "version": "dev-archive",
     "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/dev-archive/"
   },
@@ -26,9 +30,5 @@
   {
     "version": "main-archive",
     "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/main-archive/"
-  },
-  {
-    "version": "remove-conda-CI",
-    "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/remove-conda-CI/"
   }
 ]
