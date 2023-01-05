@@ -12,6 +12,10 @@
     "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/dev-archive/"
   },
   {
+    "version": "dont-check-switcher",
+    "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/dont-check-switcher/"
+  },
+  {
     "version": "garryod-conda-build",
     "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/garryod-conda-build/"
   },
