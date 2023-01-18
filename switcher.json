@@ -8,6 +8,10 @@
     "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/conda-CI/"
   },
   {
+    "version": "dev",
+    "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/dev/"
+  },
+  {
     "version": "dev-archive",
     "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/dev-archive/"
   },
