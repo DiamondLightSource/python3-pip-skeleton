@@ -1,0 +1,25 @@
+2. Started using the the dls python skeleton
+============================================
+
+Date: **insert date of conversion**
+
+Status
+------
+
+Accepted
+
+Context
+-------
+
+We should use the diamond light source `python pip skeleton <https://github.com/DiamondLightSource/python3-pip-skeleton>`_.
+The skeleton is used across diamond to ensure consitency in developer environments and package management.
+
+Decision
+--------
+
+We have switched to using the skeleton.
+
+Consequences
+------------
+
+**insert consequences here**
