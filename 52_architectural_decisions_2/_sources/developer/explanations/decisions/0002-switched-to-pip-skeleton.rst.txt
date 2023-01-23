@@ -1,7 +1,7 @@
 2. Started using the the dls python skeleton
 ============================================
 
-Date: **insert date of conversion**
+Date: 2022-02-18
 
 Status
 ------
@@ -22,4 +22,8 @@ We have switched to using the skeleton.
 Consequences
 ------------
 
-**insert consequences here**
+The developer environment may have changed, the following could be different:
+* linting
+* formatting
+* pip env setup
+* CI/CD
