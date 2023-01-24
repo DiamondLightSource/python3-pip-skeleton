@@ -21,7 +21,7 @@ def assert_not_contains_text(path: str, text: str, explanation: str):
     full_path = ROOT / path
     if full_path.exists():
         contents = full_path.read_text().replace("\n", " ")
-        skeleton_check(text in contents, f"Please change ./ {path} {explanation}")
+        skeleton_check(text in contents, f"Please change ./{path} {explanation}")
 
 
 # pyproject.toml
