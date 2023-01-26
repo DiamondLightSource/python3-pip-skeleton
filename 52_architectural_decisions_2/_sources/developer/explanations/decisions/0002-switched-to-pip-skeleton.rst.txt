@@ -11,8 +11,8 @@ Accepted
 Context
 -------
 
-We should use the diamond light source `python3-pip-skeleton <https://github.com/DiamondLightSource/python3-pip-skeleton>`_.
-The skeleton is used across Diamond to ensure consistency in developer
+We should use the following `pip-skeleton <https://github.com/DiamondLightSource/python3-pip-skeleton>`_.
+The skeleton will ensure consistency in developer
 environments and package management.
 
 Decision
@@ -28,7 +28,8 @@ and can pull from this skeleton to update the packaging to the latest techniques
 
 As such, the developer environment may have changed, the following could be
 different:
-* linting
-* formatting
-* pip venv setup
-* CI/CD
+
+- linting
+- formatting
+- pip venv setup
+- CI/CD
