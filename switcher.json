@@ -4,6 +4,10 @@
     "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/main/"
   },
   {
+    "version": "52_architectural_decisions_2",
+    "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/52_architectural_decisions_2/"
+  },
+  {
     "version": "conda-CI",
     "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/conda-CI/"
   },
