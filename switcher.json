@@ -4,10 +4,6 @@
     "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/main/"
   },
   {
-    "version": "add-pytest",
-    "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/add-pytest/"
-  },
-  {
     "version": "conda-CI",
     "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/conda-CI/"
   },
