@@ -4,6 +4,10 @@
     "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/main/"
   },
   {
+    "version": "assorted_bugs_discovered_in_bluesky_use",
+    "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/assorted_bugs_discovered_in_bluesky_use/"
+  },
+  {
     "version": "conda-CI",
     "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/conda-CI/"
   },
