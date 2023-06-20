@@ -4,10 +4,6 @@
     "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/main/"
   },
   {
-    "version": "change_where_we_add_coverage_so_debugging_works_intuitively",
-    "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/change_where_we_add_coverage_so_debugging_works_intuitively/"
-  },
-  {
     "version": "conda-CI",
     "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/conda-CI/"
   },
