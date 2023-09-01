@@ -4,10 +4,6 @@
     "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/main/"
   },
   {
-    "version": "change_to_actions_to_support_windows_and_mac",
-    "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/change_to_actions_to_support_windows_and_mac/"
-  },
-  {
     "version": "conda-CI",
     "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/conda-CI/"
   },
@@ -54,5 +50,9 @@
   {
     "version": "remove-conda-CI",
     "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/remove-conda-CI/"
+  },
+  {
+    "version": "remove_trailing_whitespace",
+    "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/remove_trailing_whitespace/"
   }
 ]
