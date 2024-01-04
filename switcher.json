@@ -4,6 +4,10 @@
     "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/main/"
   },
   {
+    "version": "bump_artifact_deps",
+    "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/bump_artifact_deps/"
+  },
+  {
     "version": "bump_setup_python",
     "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/bump_setup_python/"
   },
