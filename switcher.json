@@ -16,6 +16,10 @@
     "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/container_build_improvements/"
   },
   {
+    "version": "dependabot_github_actions_github-artifacts-03d6f0ee26",
+    "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/dependabot_github_actions_github-artifacts-03d6f0ee26/"
+  },
+  {
     "version": "dev",
     "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/dev/"
   },
