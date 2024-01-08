@@ -28,10 +28,6 @@
     "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/dls-python3-release/"
   },
   {
-    "version": "fix_release_process",
-    "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/fix_release_process/"
-  },
-  {
     "version": "fixup-dls-release",
     "url": "https://DiamondLightSource.github.io/python3-pip-skeleton/fixup-dls-release/"
   },
